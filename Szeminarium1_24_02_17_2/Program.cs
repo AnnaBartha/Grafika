@@ -32,6 +32,14 @@ namespace Szeminarium1_24_02_17_2
 
         private static int fishTransformLocation;
         private static int droneTransformLocation;
+
+        private static Random rand = new Random();
+
+        // Store the current positions and directions of the fishes
+        private static Vector3[] fishPositions;
+        private static Vector3[] fishDirections;
+        private const float fishSpeed = 0.35f; // Adjust the speed of the fishes
+
         // ******************************************** FISH
 
 
@@ -107,6 +115,50 @@ namespace Szeminarium1_24_02_17_2
 
             Gl.Enable(EnableCap.DepthTest);
             Gl.DepthFunc(DepthFunction.Lequal);
+
+            //********************************************************************
+           /* fishPositions = new Vector3[]
+            {
+                new Vector3(0f, -5f, 0f),
+                new Vector3(1f, -5f, 5f),
+                new Vector3(4f, -5f, 1f),
+                // Add all the other fish initial positions
+            };*/
+             fishPositions = new Vector3[]
+             {
+                new Vector3(0f, -5f, 0f),   // Fish 1
+                new Vector3(1f, -5f, 5f),   // Fish 2
+                new Vector3(4f, -5f, 1f),   // Fish 3
+                new Vector3(1f, -5f, 10f),  // Fish 4
+                new Vector3(1f, -5f, 6f),   // Fish 5
+                new Vector3(7f, -5f, 2f),   // Fish 6
+                new Vector3(2f, -5f, 0f),   // Fish 7
+                new Vector3(1f, -5f, 3f),   // Fish 8
+                new Vector3(9f, -5f, 3f),   // Fish 9
+                new Vector3(-2f, -5f, 8f),  // Fish 10
+                new Vector3(-6f, -5f, -5f), // Fish 11
+                new Vector3(-8f, -5f, 7f),  // Fish 12
+                new Vector3(-4f, -5f, -10f),// Fish 13
+                new Vector3(-9f, -5f, -9f), // Fish 14
+                new Vector3(-3f, -5f, 3f),  // Fish 15
+                new Vector3(-5f, -5f, 6f),  // Fish 16
+                new Vector3(-7f, -5f, -2f),  // Fish 17
+                new Vector3(-2f, -5f, -8f),  // Fish 18
+                new Vector3(-6f, -5f, 5f),   // Fish 19
+                new Vector3(-8f, -5f, -7f),  // Fish 20
+                new Vector3(-4f, -5f, 10f),  // Fish 21
+                new Vector3(-9f, -5f, 9f),   // Fish 22
+                new Vector3(-3f, -5f, -3f),  // Fish 23
+                new Vector3(-5f, -5f, -6f),  // Fish 24
+                new Vector3(-7f, -5f, 2f),    // Fish 25
+             };
+
+            fishDirections = new Vector3[fishPositions.Length];
+            for (int i = 0; i < fishDirections.Length; i++)
+            {
+                fishDirections[i] = GetRandomDirection();
+            }
+            // **********************************************************************
         }
 
         private static void LinkProgram()
@@ -182,8 +234,40 @@ namespace Szeminarium1_24_02_17_2
             // NO GL calls
             cubeArrangementModel.AdvanceTime(deltaTime);
 
+            UpdateFishPositions((float)deltaTime);
+
             controller.Update((float)deltaTime);
+
+            
+           
         }
+        //*************************************************************************************************
+        private static void UpdateFishPositions(float deltaTime)
+        {
+            for (int i = 0; i < fishPositions.Length; i++)
+            {
+                fishPositions[i] += fishDirections[i] * fishSpeed * deltaTime;
+
+                // Optionally, add logic to change direction if fish reaches certain bounds
+                if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
+                    fishPositions[i].Y > 10 || fishPositions[i].Y < -10 ||
+                    fishPositions[i].Z > 10 || fishPositions[i].Z < -10)
+                {
+                    fishDirections[i] = GetRandomDirection();
+                }
+            }
+        }
+
+        private static Vector3 GetRandomDirection()
+        {
+            float randomX = (float)(rand.NextDouble() * 2 - 1);
+            float randomY = (float)(rand.NextDouble() * 2 - 1);
+            float randomZ = (float)(rand.NextDouble() * 2 - 1);
+
+            Vector3 direction = new Vector3(randomX, randomY, randomZ);
+            return Vector3.Normalize(direction);
+        }
+        //********************************************************************************************
 
         private static unsafe void Window_Render(double deltaTime)
         {
@@ -226,7 +310,9 @@ namespace Szeminarium1_24_02_17_2
                  new Vector3(1f, -5f, 3f),    // Position of fish 2
                  new Vector3(9f, -5f, 3f)     // Position of fish 3
              };*/
-            Vector3[] fishPositions = new Vector3[]
+
+        
+        /*Vector3[] fishPositions = new Vector3[]
              {
                 new Vector3(0f, -5f, 0f),   // Fish 1
                 new Vector3(1f, -5f, 5f),   // Fish 2
@@ -253,16 +339,14 @@ namespace Szeminarium1_24_02_17_2
                 new Vector3(-3f, -5f, -3f),  // Fish 23
                 new Vector3(-5f, -5f, -6f),  // Fish 24
                 new Vector3(-7f, -5f, 2f),    // Fish 25
-             };
+             };*/
 
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
             {
+    
                 DrawFish(fishPositions[i]); // Pass the position of each fish to the DrawFish method
             }
-
-
-
 
             //DrawFish();
             // *************************** FISH
@@ -280,6 +364,7 @@ namespace Szeminarium1_24_02_17_2
             controller.Render();
         }
 
+       
         private static unsafe void DrawSkyBox()
         {
             Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(400f);
