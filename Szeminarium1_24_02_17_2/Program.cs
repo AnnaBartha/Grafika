@@ -37,6 +37,7 @@ namespace Szeminarium1_24_02_17_2
 
         // Store the current positions and directions of the fishes
         private static Vector3[] fishPositions;
+        private static Vector3 dronePosition;
         private static Vector3[] fishDirections;
         private const float fishSpeed = 0.35f; // Adjust the speed of the fishes
 
@@ -153,6 +154,9 @@ namespace Szeminarium1_24_02_17_2
                 new Vector3(-7f, -5f, 2f),    // Fish 25
              };
 
+            dronePosition = new Vector3(0f, 0f, 0f);
+            
+
             fishDirections = new Vector3[fishPositions.Length];
             for (int i = 0; i < fishDirections.Length; i++)
             {
@@ -223,6 +227,20 @@ namespace Szeminarium1_24_02_17_2
                 case Key.Space:
                     cubeArrangementModel.AnimationEnabeld = !cubeArrangementModel.AnimationEnabeld;
                     break;
+                case Key.L:
+                    updateDronePositionLeft();
+                    break;
+                case Key.R:
+                    updateDronePositionRight();
+                    break;
+                case Key.F:
+                    droneStartedLanding();
+                    break;
+                case Key.H:
+                    droneGoingHigher();
+                    break;
+
+
             }
         }
 
@@ -242,6 +260,26 @@ namespace Szeminarium1_24_02_17_2
            
         }
         //*************************************************************************************************
+        private static void updateDronePositionLeft()
+        {
+            dronePosition = new Vector3(dronePosition.X + 0.5f, dronePosition.Y, dronePosition.Z);
+        }
+
+        private static void updateDronePositionRight()
+        {
+            dronePosition = new Vector3(dronePosition.X - 0.5f, dronePosition.Y, dronePosition.Z);
+        }
+
+        private static void droneStartedLanding()
+        {
+            dronePosition = new Vector3(dronePosition.X, dronePosition.Y - 0.5f, dronePosition.Z);
+        }
+
+        private static void droneGoingHigher()
+        {
+            dronePosition = new Vector3(dronePosition.X, dronePosition.Y + 0.5f, dronePosition.Z);
+        }
+
         private static void UpdateFishPositions(float deltaTime)
         {
             for (int i = 0; i < fishPositions.Length; i++)
@@ -256,6 +294,20 @@ namespace Szeminarium1_24_02_17_2
                     fishPositions[i].Y = -2;
                     fishDirections[i] *= -1;
                 }
+
+                // In order not to swim out of the sea
+                if (fishPositions[i].X > 50)
+                {
+                    fishPositions[i].X = 50;
+                    fishDirections[i] *= -1;
+                }
+
+                if (fishPositions[i].X < -50)
+                {
+                    fishPositions[i].X = -50;
+                    fishDirections[i] *= -1;
+                }
+
 
                 // Optionally, add logic to change direction if fish reaches certain bounds
                 if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
@@ -299,7 +351,7 @@ namespace Szeminarium1_24_02_17_2
 
 
 
-            DrawPulsingTeapot();
+            DrawPulsingTeapot(dronePosition);
 
             //DrawRevolvingCube();
 
@@ -471,12 +523,13 @@ namespace Szeminarium1_24_02_17_2
             Gl.BindVertexArray(0);
         }*/
 
-        private static unsafe void DrawPulsingTeapot()
+        private static unsafe void DrawPulsingTeapot(Vector3 position)
         {
             // set material uniform to rubber
 
-            var modelMatrixForCenterCube = Matrix4X4.CreateScale((float)cubeArrangementModel.CenterCubeScale);
-            SetModelMatrix(modelMatrixForCenterCube);
+            //var modelMatrixForCenterCube = Matrix4X4.CreateScale((float)cubeArrangementModel.CenterCubeScale);
+            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
+            SetModelMatrix(modelMatrix);
             Gl.BindVertexArray(teapot.Vao);
             Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
             Gl.BindVertexArray(0);

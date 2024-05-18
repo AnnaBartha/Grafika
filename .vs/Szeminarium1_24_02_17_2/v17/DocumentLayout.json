@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\cameradescriptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\cameradescriptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\globject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\globject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -26,11 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "CameraDescriptor.cs",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\CameraDescriptor.cs",
+              "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\CameraDescriptor.cs",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\CameraDescriptor.cs",
+              "RelativeToolTip": "Szeminarium1_24_02_17_2\\CameraDescriptor.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAswA4AAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-18T16:56:28.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "GlObject.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\GlObject.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\GlObject.cs",
@@ -48,14 +65,14 @@
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
               "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ViewState": "AQIAAO0AAAAAAAAAAAAowPsAAABKAAAA",
+              "ViewState": "AQIAAP8AAAAAAAAAAAAqwBcBAABPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T07:59:14.261Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ObjResourceReader.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "GlCube.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\GlCube.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\GlCube.cs",
