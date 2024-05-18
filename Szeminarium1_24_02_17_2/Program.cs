@@ -344,8 +344,20 @@ namespace Szeminarium1_24_02_17_2
         // ****************************************** FISH
         private static unsafe void DrawFish()
         {
+            /*// ******************** setting a new poztion to the fish
+            // Set the position of the fish relative to the teapot
+            // For example, place it directly below the teapot
+            Vector3 fishPositionRelativeToTeapot = new Vector3(0f, -2f, 0f); // Adjust as needed
+
+            // Calculate the final position of the fish
+            Vector3 teapotPosition = new Vector3(0f, 0f, 0f); // Assuming teapot position is at the origin
+            Vector3 fishPosition = teapotPosition + fishPositionRelativeToTeapot;
+
+            // *******************************************************/
+
             // Set a model matrix for the fish
-            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(2f, 0f, 0f); // Adjust position as needed
+            //Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(2f, 0f, 0f); // Adjust position as needed
+            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(0f, -3f, 0f); // the fish is under the drone
             SetModelMatrix(modelMatrix);
             Gl.BindVertexArray(fish.Vao);
             Gl.DrawElements(GLEnum.Triangles, fish.IndexArrayLength, GLEnum.UnsignedInt, null);

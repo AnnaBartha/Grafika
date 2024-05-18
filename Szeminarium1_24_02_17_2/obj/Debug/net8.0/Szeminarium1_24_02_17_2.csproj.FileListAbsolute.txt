@@ -218,3 +218,4 @@ C:\Users\Anna\Documents\Egyetem\6_felev\Grafika\Projekt_verzio_kovetes\Grafika\S
 C:\Users\Anna\Documents\Egyetem\6_felev\Grafika\Projekt_verzio_kovetes\Grafika\Szeminarium1_24_02_17_2\obj\Debug\net8.0\Szeminarium1_24_02_17_2.pdb
 C:\Users\Anna\Documents\Egyetem\6_felev\Grafika\Projekt_verzio_kovetes\Grafika\Szeminarium1_24_02_17_2\obj\Debug\net8.0\Szeminarium1_24_02_17_2.genruntimeconfig.cache
 C:\Users\Anna\Documents\Egyetem\6_felev\Grafika\Projekt_verzio_kovetes\Grafika\Szeminarium1_24_02_17_2\obj\Debug\net8.0\ref\Szeminarium1_24_02_17_2.dll
+C:\Users\Anna\Documents\Egyetem\6_felev\Grafika\Projekt_verzio_kovetes\Grafika\Szeminarium1_24_02_17_2\obj\Debug\net8.0\Szeminarium1_24_02_17_2.sourcelink.json
