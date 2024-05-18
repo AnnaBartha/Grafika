@@ -248,6 +248,15 @@ namespace Szeminarium1_24_02_17_2
             {
                 fishPositions[i] += fishDirections[i] * fishSpeed * deltaTime;
 
+                // if the height of a fish is greater than -2 = Y > -2  
+                // I will change the direction and resize the Y coordinate 
+                // In order not to overflow the drone object
+                if (fishPositions[i].Y > -2)
+                {
+                    fishPositions[i].Y = -2;
+                    fishDirections[i] *= -1;
+                }
+
                 // Optionally, add logic to change direction if fish reaches certain bounds
                 if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
                     fishPositions[i].Y > 10 || fishPositions[i].Y < -10 ||
