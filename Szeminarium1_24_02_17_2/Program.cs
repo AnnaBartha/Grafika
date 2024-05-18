@@ -205,13 +205,66 @@ namespace Szeminarium1_24_02_17_2
             SetShininess();
 
 
-           
+
             DrawPulsingTeapot();
 
             //DrawRevolvingCube();
 
             // *************************** FISH
-            DrawFish();
+            // let's render multiple fish
+            /* Vector3[] fishPositions = new Vector3[]
+             {
+                 new Vector3(0f, -5f, 0f),    // Position of fish 1
+                 new Vector3(1f, -5f, 5f),    // Position of fish 2
+                 new Vector3(4f, -5f, 1f),     // Position of fish 3
+
+                 new Vector3(1f, -5f, 10f),    // Position of fish 1
+                 new Vector3(1f, -5f, 6f),    // Position of fish 2
+                 new Vector3(7f, -5f, 2f),     // Position of fish 3
+
+                 new Vector3(2f, -5f, 0f),    // Position of fish 1
+                 new Vector3(1f, -5f, 3f),    // Position of fish 2
+                 new Vector3(9f, -5f, 3f)     // Position of fish 3
+             };*/
+            Vector3[] fishPositions = new Vector3[]
+             {
+                new Vector3(0f, -5f, 0f),   // Fish 1
+                new Vector3(1f, -5f, 5f),   // Fish 2
+                new Vector3(4f, -5f, 1f),   // Fish 3
+                new Vector3(1f, -5f, 10f),  // Fish 4
+                new Vector3(1f, -5f, 6f),   // Fish 5
+                new Vector3(7f, -5f, 2f),   // Fish 6
+                new Vector3(2f, -5f, 0f),   // Fish 7
+                new Vector3(1f, -5f, 3f),   // Fish 8
+                new Vector3(9f, -5f, 3f),   // Fish 9
+                new Vector3(-2f, -5f, 8f),  // Fish 10
+                new Vector3(-6f, -5f, -5f), // Fish 11
+                new Vector3(-8f, -5f, 7f),  // Fish 12
+                new Vector3(-4f, -5f, -10f),// Fish 13
+                new Vector3(-9f, -5f, -9f), // Fish 14
+                new Vector3(-3f, -5f, 3f),  // Fish 15
+                new Vector3(-5f, -5f, 6f),  // Fish 16
+                new Vector3(-7f, -5f, -2f),  // Fish 17
+                new Vector3(-2f, -5f, -8f),  // Fish 18
+                new Vector3(-6f, -5f, 5f),   // Fish 19
+                new Vector3(-8f, -5f, -7f),  // Fish 20
+                new Vector3(-4f, -5f, 10f),  // Fish 21
+                new Vector3(-9f, -5f, 9f),   // Fish 22
+                new Vector3(-3f, -5f, -3f),  // Fish 23
+                new Vector3(-5f, -5f, -6f),  // Fish 24
+                new Vector3(-7f, -5f, 2f),    // Fish 25
+             };
+
+            // Render multiple fish at different positions
+            for (int i = 0; i < fishPositions.Length; i++)
+            {
+                DrawFish(fishPositions[i]); // Pass the position of each fish to the DrawFish method
+            }
+
+
+
+
+            //DrawFish();
             // *************************** FISH
 
 
@@ -342,22 +395,11 @@ namespace Szeminarium1_24_02_17_2
         }
 
         // ****************************************** FISH
-        private static unsafe void DrawFish()
+        private static unsafe void DrawFish(Vector3 position)
         {
-            /*// ******************** setting a new poztion to the fish
-            // Set the position of the fish relative to the teapot
-            // For example, place it directly below the teapot
-            Vector3 fishPositionRelativeToTeapot = new Vector3(0f, -2f, 0f); // Adjust as needed
-
-            // Calculate the final position of the fish
-            Vector3 teapotPosition = new Vector3(0f, 0f, 0f); // Assuming teapot position is at the origin
-            Vector3 fishPosition = teapotPosition + fishPositionRelativeToTeapot;
-
-            // *******************************************************/
-
             // Set a model matrix for the fish
             //Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(2f, 0f, 0f); // Adjust position as needed
-            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(0f, -3f, 0f); // the fish is under the drone
+            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z); // the fish is under the drone
             SetModelMatrix(modelMatrix);
             Gl.BindVertexArray(fish.Vao);
             Gl.DrawElements(GLEnum.Triangles, fish.IndexArrayLength, GLEnum.UnsignedInt, null);
