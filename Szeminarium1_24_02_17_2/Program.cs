@@ -282,42 +282,71 @@ namespace Szeminarium1_24_02_17_2
 
         private static void UpdateFishPositions(float deltaTime)
         {
+            // two lists for new fish directions and updated positions
+            List<Vector3> newFishPositions = new List<Vector3>();
+            List<Vector3> newFishDirections = new List<Vector3>();
+
+            // I iterate through all my fishes that are not fished yet
             for (int i = 0; i < fishPositions.Length; i++)
             {
-                fishPositions[i] += fishDirections[i] * fishSpeed * deltaTime;
+                // I calculate the distance between the drone and my fish
+                float distanceToDrone = Vector3.Distance(fishPositions[i], dronePosition);
 
-                // if the height of a fish is greater than -2 = Y > -2  
-                // I will change the direction and resize the Y coordinate 
-                // In order not to overflow the drone object
-                if (fishPositions[i].Y > -2)
+                // Check if the fish is further than 5 units from the drone
+                if (distanceToDrone >= 5f)
                 {
-                    fishPositions[i].Y = -2;
-                    fishDirections[i] *= -1;
+                    // THE FISH IS STILL ALIVE
+                    // I update the position of the fish
+                    fishPositions[i] += fishDirections[i] * fishSpeed * deltaTime;
+
+                    // If the height of a fish is greater than -2 = Y > -2  
+                    // Change the direction and resize the Y coordinate 
+                    // In order not to overflow (out of the sea's height)
+                    if (fishPositions[i].Y > -2)
+                    {
+                        fishPositions[i].Y = -2;
+                        fishDirections[i] *= -1;
+                    }
+
+                    // In order not to swim out of the sea (by x coord)
+                    if (fishPositions[i].X > 50)
+                    {
+                        fishPositions[i].X = 50;
+                        fishDirections[i] *= -1;
+                    }
+
+                    if (fishPositions[i].X < -50)
+                    {
+                        fishPositions[i].X = -50;
+                        fishDirections[i] *= -1;
+                    }
+
+                    // random direction change
+                    if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
+                        fishPositions[i].Y > 10 || fishPositions[i].Y < -10 ||
+                        fishPositions[i].Z > 10 || fishPositions[i].Z < -10)
+                    {
+                        fishDirections[i] = GetRandomDirection();
+                    }
+
+                    // Add the updated fish position and direction to the new updated lists
+                    newFishPositions.Add(fishPositions[i]);
+                    newFishDirections.Add(fishDirections[i]);
                 }
-
-                // In order not to swim out of the sea
-                if (fishPositions[i].X > 50)
+                else
                 {
-                    fishPositions[i].X = 50;
-                    fishDirections[i] *= -1;
-                }
-
-                if (fishPositions[i].X < -50)
-                {
-                    fishPositions[i].X = -50;
-                    fishDirections[i] *= -1;
-                }
-
-
-                // Optionally, add logic to change direction if fish reaches certain bounds
-                if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
-                    fishPositions[i].Y > 10 || fishPositions[i].Y < -10 ||
-                    fishPositions[i].Z > 10 || fishPositions[i].Z < -10)
-                {
-                    fishDirections[i] = GetRandomDirection();
+                    Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
             }
+
+            // Update the fish positions array with the fishes that has not been fished yet 
+            fishPositions = newFishPositions.ToArray();
+            fishDirections = newFishDirections.ToArray();
+
+            Console.WriteLine($"Remaining fish count: {fishPositions.Length}");
         }
+
+
 
         private static Vector3 GetRandomDirection()
         {
