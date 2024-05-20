@@ -42,7 +42,8 @@
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\CameraDescriptor.cs",
               "ViewState": "AQIAAD4AAAAAAAAAAAAswA4AAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-18T16:56:28.056Z"
+              "WhenOpened": "2024-05-18T16:56:28.056Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -54,7 +55,8 @@
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\GlObject.cs",
               "ViewState": "AQIAAAEAAAAAAAAAAAAkwA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T08:29:04.06Z"
+              "WhenOpened": "2024-05-13T08:29:04.06Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -64,7 +66,7 @@
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
               "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ViewState": "AQIAAAoBAAAAAAAAAAAAABkBAAAAAAAA",
+              "ViewState": "AQIAAPIBAAAAAAAAAAAYwAECAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T07:59:14.261Z",
               "EditorCaption": ""
@@ -77,7 +79,7 @@
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
               "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
-              "ViewState": "AQIAAIMAAAAAAAAAAAAewIwAAAATAAAA",
+              "ViewState": "AQIAAIMAAAAAAAAAAAAewJQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T08:29:13.921Z",
               "EditorCaption": ""
@@ -90,9 +92,10 @@
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\GlCube.cs",
               "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\GlCube.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\GlCube.cs",
-              "ViewState": "AQIAACQBAAAAAAAAAAAAABIAAAAkAAAA",
+              "ViewState": "AQIAACEBAAAAAAAAAIBJwBIAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T08:23:17.345Z"
+              "WhenOpened": "2024-05-13T08:23:17.345Z",
+              "EditorCaption": ""
             }
           ]
         }

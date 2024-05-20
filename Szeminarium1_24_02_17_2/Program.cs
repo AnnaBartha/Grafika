@@ -5,6 +5,7 @@ using Silk.NET.OpenGL;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
+using NAudio.Wave;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -40,6 +41,12 @@ namespace Szeminarium1_24_02_17_2
         private static Vector3 dronePosition;
         private static Vector3[] fishDirections;
         private const float fishSpeed = 0.35f; // Adjust the speed of the fishes
+
+        // sounds
+        private static WaveOutEvent outputDevice;
+        private static AudioFileReader audioFile;
+        private static bool isPlayingSound = false;
+
 
         // ******************************************** FISH
 
@@ -118,13 +125,6 @@ namespace Szeminarium1_24_02_17_2
             Gl.DepthFunc(DepthFunction.Lequal);
 
             //********************************************************************
-           /* fishPositions = new Vector3[]
-            {
-                new Vector3(0f, -5f, 0f),
-                new Vector3(1f, -5f, 5f),
-                new Vector3(4f, -5f, 1f),
-                // Add all the other fish initial positions
-            };*/
              fishPositions = new Vector3[]
              {
                 new Vector3(0f, -5f, 0f),   // Fish 1
@@ -256,8 +256,16 @@ namespace Szeminarium1_24_02_17_2
 
             controller.Update((float)deltaTime);
 
-            
-           
+
+            // ************************************************************************************* sound
+            if (isPlayingSound && outputDevice.PlaybackState != PlaybackState.Playing)
+            {
+                outputDevice.Dispose();
+                audioFile.Dispose();
+                isPlayingSound = false;
+            }
+            // *********************************************************************************************
+
         }
         //*************************************************************************************************
         private static void updateDronePositionLeft()
@@ -279,6 +287,39 @@ namespace Szeminarium1_24_02_17_2
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y + 0.5f, dronePosition.Z);
         }
+
+        //************************************************SOUND EFFECT
+        /*private static void PlaySound(string filePath)
+        {
+            using (var audioFile = new AudioFileReader(filePath))
+            using (var outputDevice = new WaveOutEvent())
+            {
+                outputDevice.Init(audioFile);
+                outputDevice.Play();
+                // Sleep to give the sound time to play
+                System.Threading.Thread.Sleep(audioFile.TotalTime);
+            }
+        }*/
+
+        private static void PlaySound(string filePath)
+        {
+            if (outputDevice != null)
+            {
+                outputDevice.Dispose();
+            }
+            if (audioFile != null)
+            {
+                audioFile.Dispose();
+            }
+
+            audioFile = new AudioFileReader(filePath);
+            outputDevice = new WaveOutEvent();
+            outputDevice.Init(audioFile);
+            outputDevice.Play();
+            isPlayingSound = true;
+        }
+
+        //*************************************************
 
         private static void UpdateFishPositions(float deltaTime)
         {
@@ -333,8 +374,9 @@ namespace Szeminarium1_24_02_17_2
                     newFishPositions.Add(fishPositions[i]);
                     newFishDirections.Add(fishDirections[i]);
                 }
-                else
+                else if (!isPlayingSound)  // Only play sound if not already playing
                 {
+                    PlaySound("dissapear.wav");
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
             }
@@ -378,58 +420,7 @@ namespace Szeminarium1_24_02_17_2
             SetViewerPosition();
             SetShininess();
 
-
-
             DrawPulsingTeapot(dronePosition);
-
-            //DrawRevolvingCube();
-
-            // *************************** FISH
-            // let's render multiple fish
-            /* Vector3[] fishPositions = new Vector3[]
-             {
-                 new Vector3(0f, -5f, 0f),    // Position of fish 1
-                 new Vector3(1f, -5f, 5f),    // Position of fish 2
-                 new Vector3(4f, -5f, 1f),     // Position of fish 3
-
-                 new Vector3(1f, -5f, 10f),    // Position of fish 1
-                 new Vector3(1f, -5f, 6f),    // Position of fish 2
-                 new Vector3(7f, -5f, 2f),     // Position of fish 3
-
-                 new Vector3(2f, -5f, 0f),    // Position of fish 1
-                 new Vector3(1f, -5f, 3f),    // Position of fish 2
-                 new Vector3(9f, -5f, 3f)     // Position of fish 3
-             };*/
-
-        
-        /*Vector3[] fishPositions = new Vector3[]
-             {
-                new Vector3(0f, -5f, 0f),   // Fish 1
-                new Vector3(1f, -5f, 5f),   // Fish 2
-                new Vector3(4f, -5f, 1f),   // Fish 3
-                new Vector3(1f, -5f, 10f),  // Fish 4
-                new Vector3(1f, -5f, 6f),   // Fish 5
-                new Vector3(7f, -5f, 2f),   // Fish 6
-                new Vector3(2f, -5f, 0f),   // Fish 7
-                new Vector3(1f, -5f, 3f),   // Fish 8
-                new Vector3(9f, -5f, 3f),   // Fish 9
-                new Vector3(-2f, -5f, 8f),  // Fish 10
-                new Vector3(-6f, -5f, -5f), // Fish 11
-                new Vector3(-8f, -5f, 7f),  // Fish 12
-                new Vector3(-4f, -5f, -10f),// Fish 13
-                new Vector3(-9f, -5f, -9f), // Fish 14
-                new Vector3(-3f, -5f, 3f),  // Fish 15
-                new Vector3(-5f, -5f, 6f),  // Fish 16
-                new Vector3(-7f, -5f, -2f),  // Fish 17
-                new Vector3(-2f, -5f, -8f),  // Fish 18
-                new Vector3(-6f, -5f, 5f),   // Fish 19
-                new Vector3(-8f, -5f, -7f),  // Fish 20
-                new Vector3(-4f, -5f, 10f),  // Fish 21
-                new Vector3(-9f, -5f, 9f),   // Fish 22
-                new Vector3(-3f, -5f, -3f),  // Fish 23
-                new Vector3(-5f, -5f, -6f),  // Fish 24
-                new Vector3(-7f, -5f, 2f),    // Fish 25
-             };*/
 
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
@@ -534,24 +525,6 @@ namespace Szeminarium1_24_02_17_2
             CheckError();
         }
 
-        /*private static unsafe void DrawRevolvingCube()
-        {
-            // set material uniform to metal
-
-            Matrix4X4<float> diamondScale = Matrix4X4.CreateScale(1f);
-            Matrix4X4<float> rotx = Matrix4X4.CreateRotationX((float)Math.PI / 4f);
-            Matrix4X4<float> rotz = Matrix4X4.CreateRotationZ((float)Math.PI / 4f);
-            Matrix4X4<float> rotLocY = Matrix4X4.CreateRotationY((float)cubeArrangementModel.DiamondCubeAngleOwnRevolution);
-            Matrix4X4<float> trans = Matrix4X4.CreateTranslation(4f, 4f, 0f);
-            Matrix4X4<float> rotGlobY = Matrix4X4.CreateRotationY((float)cubeArrangementModel.DiamondCubeAngleRevolutionOnGlobalY);
-            Matrix4X4<float> modelMatrix = diamondScale * rotx * rotz * rotLocY * trans * rotGlobY;
-
-            SetModelMatrix(modelMatrix);
-            Gl.BindVertexArray(glCubeRotating.Vao);
-            Gl.DrawElements(GLEnum.Triangles, glCubeRotating.IndexArrayLength, GLEnum.UnsignedInt, null);
-            Gl.BindVertexArray(0);
-        }*/
-
         private static unsafe void DrawPulsingTeapot(Vector3 position)
         {
             // set material uniform to rubber
@@ -563,11 +536,6 @@ namespace Szeminarium1_24_02_17_2
             Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
             Gl.BindVertexArray(0);
 
-            //var modelMatrixForTable = Matrix4X4.CreateScale(1f, 1f, 1f);
-            //SetModelMatrix(modelMatrixForTable);
-            //Gl.BindVertexArray(table.Vao);
-            //Gl.DrawElements(GLEnum.Triangles, table.IndexArrayLength, GLEnum.UnsignedInt, null);
-            //Gl.BindVertexArray(0);
         }
 
         // ****************************************** FISH
@@ -641,11 +609,6 @@ namespace Szeminarium1_24_02_17_2
             //teapot = ObjResourceReader.CreateTeapotWithColor(Gl, face1Color);
             teapot = ObjResourceReader.CreateTeapotWithColor(Gl, tableColor);
 
-            /*float[] tableColor = [System.Drawing.Color.Azure.R/256f,
-                                    System.Drawing.Color.Azure.G/256f,
-                                    System.Drawing.Color.Azure.B/256f,
-                                    1f];*/
-            //float[] tableColor = { 0.5f, 0.5f, 0.5f, 1f };
             table = GlCube.CreateSquare(Gl, tableColor);
 
             glCubeRotating = GlCube.CreateCubeWithFaceColors(Gl, face1Color, face2Color, face3Color, face4Color, face5Color, face6Color);
