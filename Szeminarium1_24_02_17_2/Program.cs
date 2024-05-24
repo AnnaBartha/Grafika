@@ -13,6 +13,8 @@ namespace Szeminarium1_24_02_17_2
     {
         private static CameraDescriptor cameraDescriptor = new();
 
+        private static CameraDescriptorDroneView cameraDescriptorDroneView = new();
+
         private static CubeArrangementModel cubeArrangementModel = new();
 
         private static IWindow window;
@@ -47,6 +49,8 @@ namespace Szeminarium1_24_02_17_2
         private static AudioFileReader audioFile;
         private static bool isPlayingSound = false;
 
+        // IN ORDER TO TRACK WHICH TYPE OF VIEW I NEED
+        private static bool insiderView = false;
 
         // ******************************************** FISH
 
@@ -201,25 +205,121 @@ namespace Szeminarium1_24_02_17_2
                 return shaderReader.ReadToEnd();
         }
 
+
+        // ************************************** NAVBAR FOR CAMERA TYPE
+        private static void RenderNavBar()
+        {
+            ImGui.Begin("Camera Navigation");
+
+            // Button to toggle between camera views
+            if (ImGui.Button("Change View"))
+            {
+                insiderView = !insiderView; // Toggle the view mode
+            }
+
+            ImGui.End();
+        }
+        // ****************************************************************************
+
+        /*// outside view
         private static void Keyboard_KeyDown(IKeyboard keyboard, Key key, int arg3)
         {
             switch (key)
             {
 
-                // DRONE position update
                 case Key.Left:
-                    updateDronePositionRight();
+                    cameraDescriptor.DecreaseZYAngle();
                     break;
                     ;
                 case Key.Right:
-                    updateDronePositionLeft();
+                    cameraDescriptor.IncreaseZYAngle();
                     break;
                 case Key.Down:
-                    droneStartedLanding();
+                    cameraDescriptor.IncreaseDistance();
                     break;
                 case Key.Up:
+                    cameraDescriptor.DecreaseDistance();
+                    break;
+                case Key.U:
+                    cameraDescriptor.IncreaseZXAngle();
+                    break;
+                case Key.D:
+                    cameraDescriptor.DecreaseZXAngle();
+                    break;
+                case Key.Space:
+                    cubeArrangementModel.AnimationEnabeld = !cubeArrangementModel.AnimationEnabeld;
+                    break;
+                case Key.L:
+                    updateDronePositionLeft();
+                    break;
+                case Key.R:
+                    updateDronePositionRight();
+                    break;
+                case Key.F:
+                    droneStartedLanding();
+                    break;
+                case Key.H:
                     droneGoingHigher();
+                    break;
+            }
+        }*/
+
+
+        // inside view
+        private static void Keyboard_KeyDown(IKeyboard keyboard, Key key, int arg3)
+        {
+            switch (key)
+            {
+
+                case Key.Left:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.DecreaseZYAngle();
+                    }
+                    break;
+                    ;
+                case Key.Right:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.IncreaseZYAngle();
+                    }
+                     break;
+                case Key.Down:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.IncreaseDistance();
+                    }
                    break;
+               case Key.Up:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.DecreaseDistance();
+                    }
+                   break;
+               case Key.U:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.IncreaseZXAngle();
+                    }
+                   break;
+               case Key.D:
+                    if (!insiderView)
+                    {
+                        cameraDescriptor.DecreaseZXAngle();
+                    }
+                   break;
+                case Key.L:
+                    updateDronePositionLeft();
+                    break;
+                case Key.R:
+                    updateDronePositionRight();
+                    break;
+                case Key.F:
+                    droneStartedLanding();
+                    break;
+                case Key.H:
+                    droneGoingHigher();
+                    break;
             }
         }
 
@@ -250,21 +350,37 @@ namespace Szeminarium1_24_02_17_2
         private static void updateDronePositionLeft()
         {
             dronePosition = new Vector3(dronePosition.X + 0.5f, dronePosition.Y, dronePosition.Z);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
 
         private static void updateDronePositionRight()
         {
             dronePosition = new Vector3(dronePosition.X - 0.5f, dronePosition.Y, dronePosition.Z);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
 
         private static void droneStartedLanding()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y - 0.5f, dronePosition.Z);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
 
         private static void droneGoingHigher()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y + 0.5f, dronePosition.Z);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
 
         //************************************************SOUND EFFECT
@@ -367,61 +483,6 @@ namespace Szeminarium1_24_02_17_2
             return Vector3.Normalize(direction);
         }
         //********************************************************************************************
-
-
-
-
-        // **************************** CAMERA POSITION NAVBAR
-        private static void RenderNavBar()
-        {
-            ImGui.Begin("Camera Navigation");
-
-            /*ImGui.PushStyleVar(ImGuiStyleVar.ButtonPadding, new Vector2(20, 10)); // Increase button padding
-            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(10, 10)); // Increase spacing between buttons*/
-
-            if (ImGui.Button("Move Left"))
-            {
-                cameraDescriptor.IncreaseZYAngle(); // Adjust according to your camera controls
-            }
-
-            ImGui.SameLine();
-
-            if (ImGui.Button("Move Right"))
-            {
-                cameraDescriptor.DecreaseZYAngle(); // Adjust according to your camera controls
-            }
-
-            ImGui.NewLine();
-
-            if (ImGui.Button("Move Forward"))
-            {
-                cameraDescriptor.IncreaseDistance(); // Adjust according to your camera controls
-            }
-
-            ImGui.SameLine();
-
-            if (ImGui.Button("Move Backward"))
-            {
-                cameraDescriptor.DecreaseDistance(); // Adjust according to your camera controls
-            }
-
-            ImGui.NewLine();
-
-            if (ImGui.Button("Move Circular Backward"))
-            {
-                cameraDescriptor.MoveCircular(-1); // Move backward in a circular pathv
-            }
-
-            if (ImGui.Button("Move Circular Forward"))
-            {
-                cameraDescriptor.MoveCircular(1); // Move backward in a circular pathv
-            }
-
-
-
-            ImGui.End();
-        }
-        // *******************************************************************************************************
 
         private static unsafe void Window_Render(double deltaTime)
         {
@@ -532,9 +593,23 @@ namespace Szeminarium1_24_02_17_2
                 throw new Exception($"{ViewPosVariableName} uniform not found on shader.");
             }
 
-            Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
+            if(insiderView)
+            {
+                Gl.Uniform3(location, cameraDescriptorDroneView.Position.X, cameraDescriptorDroneView.Position.Y, cameraDescriptorDroneView.Position.Z);
+
+            } else
+            {
+                Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
+            }
+            // OTSIDE VIEW
+            //Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
+
+            //INSIDE VIEW
+            //Gl.Uniform3(location, cameraDescriptorDroneView.Position.X, cameraDescriptorDroneView.Position.Y, cameraDescriptorDroneView.Position.Z);
+
             CheckError();
         }
+
 
         private static unsafe void SetShininess()
         {
@@ -669,7 +744,20 @@ namespace Szeminarium1_24_02_17_2
 
         private static unsafe void SetViewMatrix()
         {
-            var viewMatrix = Matrix4X4.CreateLookAt(cameraDescriptor.Position, cameraDescriptor.Target, cameraDescriptor.UpVector);
+            // outside view
+            //var viewMatrix = Matrix4X4.CreateLookAt(cameraDescriptor.Position, cameraDescriptor.Target, cameraDescriptor.UpVector);
+
+            //inside view
+            //var viewMatrix = Matrix4X4.CreateLookAt(cameraDescriptorDroneView.Position, cameraDescriptorDroneView.Target, cameraDescriptorDroneView.UpVector);
+
+            var viewMatrix = insiderView
+                ? Matrix4X4.CreateLookAt(cameraDescriptorDroneView.Position, cameraDescriptorDroneView.Target, cameraDescriptorDroneView.UpVector)
+                : Matrix4X4.CreateLookAt(cameraDescriptor.Position, cameraDescriptor.Target, cameraDescriptor.UpVector);
+
+
+
+
+
             int location = Gl.GetUniformLocation(program, ViewMatrixVariableName);
 
             if (location == -1)
