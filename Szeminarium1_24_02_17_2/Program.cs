@@ -74,7 +74,7 @@ namespace Szeminarium1_24_02_17_2
         static void Main(string[] args)
         {
             WindowOptions windowOptions = WindowOptions.Default;
-            windowOptions.Title = "2 szeminárium";
+            windowOptions.Title = "Anna's dream came true <3";
             windowOptions.Size = new Vector2D<int>(1000, 1000);
 
             // on some systems there is no depth buffer by default, so we need to make sure one is created
@@ -205,42 +205,21 @@ namespace Szeminarium1_24_02_17_2
         {
             switch (key)
             {
+
+                // DRONE position update
                 case Key.Left:
-                    cameraDescriptor.DecreaseZYAngle();
+                    updateDronePositionRight();
                     break;
                     ;
                 case Key.Right:
-                    cameraDescriptor.IncreaseZYAngle();
-                    break;
-                case Key.Down:
-                    cameraDescriptor.IncreaseDistance();
-                    break;
-                case Key.Up:
-                    cameraDescriptor.DecreaseDistance();
-                    break;
-                case Key.U:
-                    cameraDescriptor.IncreaseZXAngle();
-                    break;
-                case Key.D:
-                    cameraDescriptor.DecreaseZXAngle();
-                    break;
-                case Key.Space:
-                    cubeArrangementModel.AnimationEnabeld = !cubeArrangementModel.AnimationEnabeld;
-                    break;
-                case Key.L:
                     updateDronePositionLeft();
                     break;
-                case Key.R:
-                    updateDronePositionRight();
-                    break;
-                case Key.F:
+                case Key.Down:
                     droneStartedLanding();
                     break;
-                case Key.H:
+                case Key.Up:
                     droneGoingHigher();
-                    break;
-
-
+                   break;
             }
         }
 
@@ -289,18 +268,6 @@ namespace Szeminarium1_24_02_17_2
         }
 
         //************************************************SOUND EFFECT
-        /*private static void PlaySound(string filePath)
-        {
-            using (var audioFile = new AudioFileReader(filePath))
-            using (var outputDevice = new WaveOutEvent())
-            {
-                outputDevice.Init(audioFile);
-                outputDevice.Play();
-                // Sleep to give the sound time to play
-                System.Threading.Thread.Sleep(audioFile.TotalTime);
-            }
-        }*/
-
         private static void PlaySound(string filePath)
         {
             if (outputDevice != null)
@@ -401,6 +368,61 @@ namespace Szeminarium1_24_02_17_2
         }
         //********************************************************************************************
 
+
+
+
+        // **************************** CAMERA POSITION NAVBAR
+        private static void RenderNavBar()
+        {
+            ImGui.Begin("Camera Navigation");
+
+            /*ImGui.PushStyleVar(ImGuiStyleVar.ButtonPadding, new Vector2(20, 10)); // Increase button padding
+            ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, new Vector2(10, 10)); // Increase spacing between buttons*/
+
+            if (ImGui.Button("Move Left"))
+            {
+                cameraDescriptor.IncreaseZYAngle(); // Adjust according to your camera controls
+            }
+
+            ImGui.SameLine();
+
+            if (ImGui.Button("Move Right"))
+            {
+                cameraDescriptor.DecreaseZYAngle(); // Adjust according to your camera controls
+            }
+
+            ImGui.NewLine();
+
+            if (ImGui.Button("Move Forward"))
+            {
+                cameraDescriptor.IncreaseDistance(); // Adjust according to your camera controls
+            }
+
+            ImGui.SameLine();
+
+            if (ImGui.Button("Move Backward"))
+            {
+                cameraDescriptor.DecreaseDistance(); // Adjust according to your camera controls
+            }
+
+            ImGui.NewLine();
+
+            if (ImGui.Button("Move Circular Backward"))
+            {
+                cameraDescriptor.MoveCircular(-1); // Move backward in a circular pathv
+            }
+
+            if (ImGui.Button("Move Circular Forward"))
+            {
+                cameraDescriptor.MoveCircular(1); // Move backward in a circular pathv
+            }
+
+
+
+            ImGui.End();
+        }
+        // *******************************************************************************************************
+
         private static unsafe void Window_Render(double deltaTime)
         {
             //Console.WriteLine($"Render after {deltaTime} [s].");
@@ -411,6 +433,8 @@ namespace Szeminarium1_24_02_17_2
 
 
             Gl.UseProgram(program);
+
+            RenderNavBar();
 
             SetViewMatrix();
             SetProjectionMatrix();

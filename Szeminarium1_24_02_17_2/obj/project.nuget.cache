@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "tlNmOce0y1OnqV2qmQj6tjBIYwFCC02RCmR6OjQEJeAoD2BWKwNu6Hq9iUcFDd8c1gDNj5ZUWyqGjSeIIQxw1A==",
+  "dgSpecHash": "Q0dGv0v27NiA8talfe7pq9tekbRbgNElmXChGNvOlIntzEldEP+m7IIZfpLG83OuF75yavpVjcFMnJzFRq+XSg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Anna\\.nuget\\packages\\documentformat.openxml\\3.0.2\\documentformat.openxml.3.0.2.nupkg.sha512",
+    "C:\\Users\\Anna\\.nuget\\packages\\documentformat.openxml.framework\\3.0.2\\documentformat.openxml.framework.3.0.2.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\imgui.net\\1.89.9.3\\imgui.net.1.89.9.3.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\3.1.6\\microsoft.dotnet.platformabstractions.3.1.6.nupkg.sha512",
@@ -37,6 +39,7 @@
     "C:\\Users\\Anna\\.nuget\\packages\\silk.net.windowing.sdl\\2.20.0\\silk.net.windowing.sdl.2.20.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\stbimagesharp\\2.27.14\\stbimagesharp.2.27.14.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\Anna\\.nuget\\packages\\system.io.packaging\\8.0.0\\system.io.packaging.8.0.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
