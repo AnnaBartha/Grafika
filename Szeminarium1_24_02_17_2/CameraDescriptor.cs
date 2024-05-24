@@ -35,6 +35,11 @@ namespace Szeminarium1_24_02_17_2
             {
                 return GetPointFromAngles(DistanceToOrigin, AngleToZYPlane, AngleToZXPlane);
             }
+            set
+            {
+                // You can perform any necessary validation or additional logic here
+                dronePosition = value;
+            }
         }
         /*public Vector3D<float> Position
         {

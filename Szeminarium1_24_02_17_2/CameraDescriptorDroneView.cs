@@ -12,7 +12,7 @@ namespace Szeminarium1_24_02_17_2
         private Vector3D<float> dronePosition = new Vector3D<float> (0f,0f,0f);
 
         // Offset values to position the camera behind and above the drone
-        private Vector3D<float> offset = new Vector3D<float>(0, 20, -10);
+        private Vector3D<float> offset = new Vector3D<float>(0, 10, 10);
 
         // Set the drone's position
         public void SetDronePosition(Vector3D<float> position)
@@ -36,6 +36,7 @@ namespace Szeminarium1_24_02_17_2
             {
                 // Assuming up vector is always pointing up in the world space (0, 1, 0)
                 return new Vector3D<float>(0, 1, 0);
+
             }
         }
 

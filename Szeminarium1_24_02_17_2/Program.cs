@@ -52,6 +52,11 @@ namespace Szeminarium1_24_02_17_2
         // IN ORDER TO TRACK WHICH TYPE OF VIEW I NEED
         private static bool insiderView = false;
 
+        // in order to make the camera view change smoother
+        private static Vector3 targetCameraPosition; // Store the target position for camera movement
+        private const float cameraMoveSpeed = 5.0f;  // Adjust the speed of camera movement
+
+
         // ******************************************** FISH
 
 
@@ -343,7 +348,7 @@ namespace Szeminarium1_24_02_17_2
                 audioFile.Dispose();
                 isPlayingSound = false;
             }
-            // *********************************************************************************************
+            // ********************************************************************************************
 
         }
         //*************************************************************************************************
