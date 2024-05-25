@@ -10,10 +10,19 @@ namespace Szeminarium1_24_02_17_2
             uint vao = Gl.GenVertexArray();
             Gl.BindVertexArray(vao);
 
-            List<float[]> objVertices;
-            List<int[]> objFaces;
+            /*List<float[]> objVertices;
+            List<int[]> objFaces;*/
 
-            ReadObjDataForTeapot(out objVertices, out objFaces);
+            // ****************
+            List<float[]> objVertices;
+            List<float[]> objTextureCoords;
+            List<float[]> objNormals;
+            List<int[]> objFaces;
+            //*****************
+
+            //ReadObjDataForTeapot(out objVertices, out objFaces);
+            ReadObjDataForTeapot(out objVertices, out objTextureCoords, out objNormals, out objFaces);
+
 
             List<float> glVertices = new List<float>();
             List<float> glColors = new List<float>();
@@ -132,7 +141,7 @@ namespace Szeminarium1_24_02_17_2
             }
         }
 
-        private static unsafe void ReadObjDataForTeapot(out List<float[]> objVertices, out List<int[]> objFaces)
+        /*private static unsafe void ReadObjDataForTeapot(out List<float[]> objVertices, out List<int[]> objFaces)
         {
             objVertices = new List<float[]>();
             objFaces = new List<int[]>();
@@ -167,7 +176,67 @@ namespace Szeminarium1_24_02_17_2
                     }
                 }
             }
+        }*/
+
+        // ********************************************************************************************* READ DRONE OBJ WITH VT AND WN
+        private static unsafe void ReadObjDataForTeapot(out List<float[]> objVertices, out List<float[]> objTextureCoords, out List<float[]> objNormals, out List<int[]> objFaces)
+        {
+            objVertices = new List<float[]>();
+            objTextureCoords = new List<float[]>();
+            objNormals = new List<float[]>();
+            objFaces = new List<int[]>();
+
+            using (Stream objStream = typeof(ObjResourceReader).Assembly.GetManifestResourceStream("Szeminarium1_24_02_17_2.Resources.drone.obj"))
+            using (StreamReader objReader = new StreamReader(objStream))
+            {
+                while (!objReader.EndOfStream)
+                {
+                    var line = objReader.ReadLine();
+
+                    if (String.IsNullOrEmpty(line) || line.Trim().StartsWith("#"))
+                        continue;
+
+                    var parts = line.Trim().Split(' ');
+                    var lineClassifier = parts[0];
+                    var lineData = parts.Skip(1).ToArray();
+
+                    switch (lineClassifier)
+                    {
+                        case "v":
+                            float[] vertex = new float[3];
+                            for (int i = 0; i < vertex.Length; ++i)
+                                vertex[i] = float.Parse(lineData[i]);
+                            objVertices.Add(vertex);
+                            break;
+                        case "vt":
+                            float[] textureCoord = new float[2];
+                            for (int i = 0; i < textureCoord.Length; ++i)
+                                textureCoord[i] = float.Parse(lineData[i]);
+                            objTextureCoords.Add(textureCoord);
+                            break;
+                        case "vn":
+                            float[] normal = new float[3];
+                            for (int i = 0; i < normal.Length; ++i)
+                                normal[i] = float.Parse(lineData[i]);
+                            objNormals.Add(normal);
+                            break;
+                        case "f":
+                            int[] face = new int[3];
+                            for (int i = 0; i < face.Length; ++i)
+                            {
+                                var vertexData = lineData[i].Split('/');
+                                face[i] = int.Parse(vertexData[0]); // Assuming only vertex indices are needed
+                                                                    // Additional parsing for texture and normal indices can be added here if needed
+                            }
+                            objFaces.Add(face);
+                            break;
+                    }
+                }
+            }
         }
+        // ********************************************************************************************* READ DRONE OBJ WITH VT AND WN FINISH
+
+
 
         // *************************************************************************************8 FISH 
         private static unsafe void ReadObjDataForFish(out List<float[]> objVertices, out List<int[]> objFaces)
@@ -206,5 +275,8 @@ namespace Szeminarium1_24_02_17_2
             }
         }
         // *********************************************************************************************************************
+
+        }
+
     }
-}
+

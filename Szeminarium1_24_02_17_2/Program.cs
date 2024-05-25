@@ -6,6 +6,7 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
+using StbImageSharp;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -461,6 +462,7 @@ namespace Szeminarium1_24_02_17_2
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
                     PlaySound("dissapear.wav");
+
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
             }
@@ -776,5 +778,35 @@ namespace Szeminarium1_24_02_17_2
             if (error != ErrorCode.NoError)
                 throw new Exception("GL.GetError() returned " + error.ToString());
         }
+
+
+        // ************************************************* TEXTURES
+
+        // Load texture
+       /* private static uint LoadTexture(string path)
+        {
+            using var stream = File.OpenRead(path);
+            var image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
+
+            uint texture;
+            Gl.GenTextures(1, out texture);
+            Gl.BindTexture(TextureTarget.Texture2D, texture);
+
+            //Gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
+
+            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.Repeat);
+            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)GLEnum.Repeat);
+            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)GLEnum.Linear);
+            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)GLEnum.Linear);
+
+            Gl.GenerateMipmap(TextureTarget.Texture2D);
+
+            Gl.BindTexture(TextureTarget.Texture2D, 0);
+
+            return texture;
+        }*/
+
+        // ************************************************* TEXTURES Finish
+
     }
 }
