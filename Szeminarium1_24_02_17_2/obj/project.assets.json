@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AssetRipper.TextureDecoder/2.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/AssetRipper.TextureDecoder.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/AssetRipper.TextureDecoder.dll": {}
+        }
+      },
       "DocumentFormat.OpenXml/3.0.2": {
         "type": "package",
         "dependencies": {
@@ -803,6 +812,19 @@
     }
   },
   "libraries": {
+    "AssetRipper.TextureDecoder/2.2.0": {
+      "sha512": "sucumJqDcVkPIDrOW53aNoolcgP5qKV/6FyFT591Rdz0aLw5WRDvpw7qj80v37zTUUaOSGxIyHzAHMkQQU1QmQ==",
+      "type": "package",
+      "path": "assetripper.texturedecoder/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "assetripper.texturedecoder.2.2.0.nupkg.sha512",
+        "assetripper.texturedecoder.nuspec",
+        "lib/net8.0/AssetRipper.TextureDecoder.dll",
+        "lib/net8.0/TextureDecoder.xml"
+      ]
+    },
     "DocumentFormat.OpenXml/3.0.2": {
       "sha512": "gqjP/BxKWgwAWwPAN+RpKaMOiidPM07F+mAxiiW184/MnkHnkk12Qo7cRB0wuq4kOZUrUzQ9EUO966hUy/wKBw==",
       "type": "package",
@@ -1973,6 +1995,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AssetRipper.TextureDecoder >= 2.2.0",
       "DocumentFormat.OpenXml >= 3.0.2",
       "NAudio >= 2.2.1",
       "Silk.NET >= 2.20.0",
@@ -2024,6 +2047,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AssetRipper.TextureDecoder": {
+            "target": "Package",
+            "version": "[2.2.0, )"
+          },
           "DocumentFormat.OpenXml": {
             "target": "Package",
             "version": "[3.0.2, )"

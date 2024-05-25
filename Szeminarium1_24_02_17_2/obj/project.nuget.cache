@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Q0dGv0v27NiA8talfe7pq9tekbRbgNElmXChGNvOlIntzEldEP+m7IIZfpLG83OuF75yavpVjcFMnJzFRq+XSg==",
+  "dgSpecHash": "8vvAO9hEaNQoZbVzzGr5ItBoO2S1JdHJV3z9GcnKA2mO/OeSVYM98n3p6cYd3XBEPuPT8fCgaSDY5q5AJrWlQw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Anna\\.nuget\\packages\\assetripper.texturedecoder\\2.2.0\\assetripper.texturedecoder.2.2.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\documentformat.openxml\\3.0.2\\documentformat.openxml.3.0.2.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\documentformat.openxml.framework\\3.0.2\\documentformat.openxml.framework.3.0.2.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\imgui.net\\1.89.9.3\\imgui.net.1.89.9.3.nupkg.sha512",

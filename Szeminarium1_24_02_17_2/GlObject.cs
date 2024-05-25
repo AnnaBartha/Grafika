@@ -30,5 +30,15 @@ namespace Szeminarium1_24_02_17_2
             Gl.DeleteBuffer(Indices);
             Gl.DeleteVertexArray(Vao);
         }
+
+        // ***************************8 texture
+        public void Bind()
+        {
+            Gl.BindVertexArray(Vao);
+            Gl.BindBuffer(GLEnum.ArrayBuffer, Vertices);
+            Gl.BindBuffer(GLEnum.ElementArrayBuffer, Indices);
+        }
+
+        // ****************************** texture finish
     }
 }

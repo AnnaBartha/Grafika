@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="metal.png" />
     <None Remove="Resources\beach.png" />
     <None Remove="Resources\drone.obj" />
     <None Remove="Resources\drone1.obj" />
@@ -24,10 +25,13 @@
     <None Remove="Resources\skybox.png" />
     <None Remove="Resources\teapot.obj" />
     <None Remove="Shaders\FragmentShader.frag" />
+    <None Remove="Shaders\MyLittleSecondShader.glsl" />
+    <None Remove="Shaders\MyLittleShader.glsl" />
     <None Remove="Shaders\VertexShader.vert" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="metal.png" />
     <EmbeddedResource Include="Resources\beach.png" />
     <EmbeddedResource Include="Resources\drone.obj" />
     <EmbeddedResource Include="Resources\drone_cool_shape.obj" />
@@ -43,10 +47,17 @@
     <EmbeddedResource Include="Resources\teapot.obj" />
     <EmbeddedResource Include="Resources\drone3.obj" />
     <EmbeddedResource Include="Shaders\FragmentShader.frag" />
+    <EmbeddedResource Include="Shaders\MyLittleSecondShader.glsl">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shaders\MyLittleShader.glsl">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Shaders\VertexShader.vert" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AssetRipper.TextureDecoder" Version="2.2.0" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.2" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Silk.NET" Version="2.20.0" />

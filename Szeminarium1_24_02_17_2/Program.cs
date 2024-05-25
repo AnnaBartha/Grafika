@@ -7,6 +7,7 @@ using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
 using StbImageSharp;
+using AssetRipper.TextureDecoder;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -53,8 +54,11 @@ namespace Szeminarium1_24_02_17_2
         // IN ORDER TO TRACK WHICH TYPE OF VIEW I NEED
         private static bool insiderView = false;
 
-        
-
+        // TEXTURING
+        private static GL _gl;
+        private static uint _shaderProgram;
+        private static uint _texture;
+        //private static Texture texture = new Texture("metal.png");
         // ******************************************** FISH
 
 
@@ -78,7 +82,7 @@ namespace Szeminarium1_24_02_17_2
         private const string ViewPosVariableName = "viewPos";
         private const string ShininessVariableName = "shininess";
 
-        static void Main(string[] args)
+        static unsafe void Main(string[] args)
         {
             WindowOptions windowOptions = WindowOptions.Default;
             windowOptions.Title = "Anna's dream came true <3";
@@ -88,6 +92,17 @@ namespace Szeminarium1_24_02_17_2
             windowOptions.PreferredDepthBufferBits = 24;
 
             window = Window.Create(windowOptions);
+            /*//var gl = GL.GetApi(window);
+            var gl = window.CreateOpenGL();
+            var api = GL.GetApi((Silk.NET.Core.Contexts.IGLContextSource)gl);
+            // Create a window and OpenGL context (not shown)
+            // HERE IS MY PROBELM
+            // Load texture
+            var texturePath = "metal.png"; // Path to your texture image
+            var drone = DroneTexture.CreateTexturedDrone(gl, texturePath);*/
+
+
+
 
             window.Load += Window_Load;
             window.Update += Window_Update;
@@ -96,6 +111,8 @@ namespace Szeminarium1_24_02_17_2
 
             window.Run();
         }
+
+        
 
         private static void Window_Load()
         {
@@ -497,6 +514,8 @@ namespace Szeminarium1_24_02_17_2
 
 
             Gl.UseProgram(program);
+           /* string texturePath = "metal.png";
+            uint texture = LoadTexture(texturePath);*/
 
             RenderNavBar();
 
@@ -783,7 +802,7 @@ namespace Szeminarium1_24_02_17_2
         // ************************************************* TEXTURES
 
         // Load texture
-       /* private static uint LoadTexture(string path)
+        /*private static uint LoadTexture(string path)
         {
             using var stream = File.OpenRead(path);
             var image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
