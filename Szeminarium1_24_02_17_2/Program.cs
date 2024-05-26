@@ -69,6 +69,12 @@ namespace Szeminarium1_24_02_17_2
         private static bool isRightKeyPressed = false;
         private static bool isUKeyPressed = false;
         private static bool isDKeyPressed = false;
+        private static bool elore = false;
+        private static bool hatra = false;
+
+        // smooth movemnet drone
+        private static Vector3 droneMoveDirection = Vector3.Zero;
+        private static float rotationAngle = 0.0f;
 
         // ******************************************** FISH
 
@@ -285,16 +291,28 @@ namespace Szeminarium1_24_02_17_2
                     }
                     break;
                 case Key.L:
+                    droneMoveDirection = new Vector3(1,0,0);
                     isLKeyPressed = true;
                     break;
                 case Key.R:
+                    droneMoveDirection = new Vector3(-1, 0, 0);
                     isRKeyPressed = true;
                     break;
                 case Key.F:
+                    //droneMoveDirection = new Vector3(0, -1, 0);
                     isFKeyPressed = true;
                     break;
                 case Key.H:
+                    //droneMoveDirection = new Vector3(0, 1, 0);
                     isHKeyPressed = true;
+                    break;
+                case Key.E:
+                    elore = true;
+                    droneMoveDirection = new Vector3(0, 0, 1);
+                    break;
+                case Key.B:
+                    hatra = true;
+                    droneMoveDirection = new Vector3(0, 0, -1);
                     break;
             }
         }
@@ -353,6 +371,12 @@ namespace Szeminarium1_24_02_17_2
                 case Key.H:
                     isHKeyPressed = false;
                     break;
+                case Key.E:
+                    elore = false;
+                    break;
+                case Key.B:
+                    hatra = false;  
+                    break;
             }
         }
 
@@ -388,6 +412,8 @@ namespace Szeminarium1_24_02_17_2
             if(isHKeyPressed) { droneGoingHigher(); }
             if(isUKeyPressed) { cameraDescriptor.IncreaseZXAngle();  }
             if(isDKeyPressed) { cameraDescriptor.DecreaseZXAngle();  }
+            if( elore ) { updateDronePositionForward(); }
+            if (hatra) { updateDronePositionBackward(); }
 
         }
         //*************************************************************************************************
@@ -421,6 +447,24 @@ namespace Szeminarium1_24_02_17_2
         private static void droneGoingHigher()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y + 0.5f, dronePosition.Z);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
+        }
+
+        private static void updateDronePositionForward()
+        {
+            dronePosition = new Vector3(dronePosition.X, dronePosition.Y, dronePosition.Z - 0.5f);
+
+            // ********************************************* update also the camera positin
+            Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
+            cameraDescriptorDroneView.SetDronePosition(convertedPosition);
+        }
+
+        private static void updateDronePositionBackward()
+        {
+            dronePosition = new Vector3(dronePosition.X, dronePosition.Y, dronePosition.Z + 0.5f);
 
             // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
@@ -674,14 +718,42 @@ namespace Szeminarium1_24_02_17_2
 
         private static unsafe void DrawPulsingTeapot(Vector3 position)
         {
-            // set material uniform to rubber
+            // calculate the target rotation angle based on the movement direction
+            float targetRotationAngle = MathF.Atan2(-droneMoveDirection.X, droneMoveDirection.Z);
+            if (droneMoveDirection == Vector3.Zero)
+            {
+                targetRotationAngle = rotationAngle;
+            }
+            else
+            {
+                rotationAngle = targetRotationAngle;
+            }
 
-            //var modelMatrixForCenterCube = Matrix4X4.CreateScale((float)cubeArrangementModel.CenterCubeScale);
-            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
-            SetModelMatrix(modelMatrix);
+            // model matrix for the dragon with translation and rotation
+            Matrix4X4<float> dragonModelMatrix = Matrix4X4.CreateScale(0.5f) *
+                                                 Matrix4X4.CreateRotationY(targetRotationAngle) * // Rotate around Y-axis
+                                                 Matrix4X4.CreateTranslation(new Vector3D<float>(position.X, position.Y, position.Z));
+
+            SetModelMatrix(dragonModelMatrix);
             Gl.BindVertexArray(teapot.Vao);
             Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
             Gl.BindVertexArray(0);
+
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////
+
+
+            // OLD CODE <3
+            // set material uniform to rubber
+
+            //var modelMatrixForCenterCube = Matrix4X4.CreateScale((float)cubeArrangementModel.CenterCubeScale);
+            /*Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
+            SetModelMatrix(modelMatrix);
+            Gl.BindVertexArray(teapot.Vao);
+            Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
+            Gl.BindVertexArray(0);*/
 
         }
 
