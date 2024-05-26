@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
@@ -38,6 +38,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
+              "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
+              "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAqwL0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-13T07:59:14.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "ObjResourceReader.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
@@ -47,19 +60,6 @@
               "ViewState": "AQIAAFMAAAAAAAAAAAAUwOUAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-26T09:59:15.439Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
-              "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
-              "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ViewState": "AQIAAO0CAAAAAAAAAAAkwAMDAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-13T07:59:14.261Z",
-              "EditorCaption": ""
             }
           ]
         }

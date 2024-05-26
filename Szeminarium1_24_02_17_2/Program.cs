@@ -43,6 +43,7 @@ namespace Szeminarium1_24_02_17_2
         private static Vector3 dronePosition;
         private static Vector3[] fishDirections;
         private const float fishSpeed = 0.35f; // Adjust the speed of the fishes
+        private static float[] fishRotations;
 
         // sounds
         private static WaveOutEvent outputDevice;
@@ -182,6 +183,7 @@ namespace Szeminarium1_24_02_17_2
                 new Vector3(-5f, -5f, -6f),  // Fish 24
                 new Vector3(-7f, -5f, 2f),    // Fish 25
             };
+            fishRotations = new float[fishPositions.Length];
 
             dronePosition = new Vector3(0f, 0f, 0f);
 
@@ -498,6 +500,9 @@ namespace Szeminarium1_24_02_17_2
             List<Vector3> newFishPositions = new List<Vector3>();
             List<Vector3> newFishDirections = new List<Vector3>();
 
+            // rotation
+            List<float> newFishRotations = new List<float>();
+
             // I iterate through all my fishes that are not fished yet
             for (int i = 0; i < fishPositions.Length; i++)
             {
@@ -521,7 +526,7 @@ namespace Szeminarium1_24_02_17_2
                     }
 
                     // In order not to swim out of the sea (by x coord)
-                    if (fishPositions[i].X > 50)
+                    /*if (fishPositions[i].X > 50)
                     {
                         fishPositions[i].X = 50;
                         fishDirections[i] *= -1;
@@ -531,7 +536,7 @@ namespace Szeminarium1_24_02_17_2
                     {
                         fishPositions[i].X = -50;
                         fishDirections[i] *= -1;
-                    }
+                    }*/
 
                     // random direction change
                     if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
@@ -541,9 +546,15 @@ namespace Szeminarium1_24_02_17_2
                         fishDirections[i] = GetRandomDirection();
                     }
 
+                    // rotation
+                    float rotationAngle = MathF.Atan2(-fishDirections[i].X, fishDirections[i].Z);
+                    fishRotations[i] = rotationAngle;
+
                     // Add the updated fish position and direction to the new updated lists
                     newFishPositions.Add(fishPositions[i]);
                     newFishDirections.Add(fishDirections[i]);
+                    //rotation
+                    newFishRotations.Add(rotationAngle);
                 }
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
@@ -556,10 +567,10 @@ namespace Szeminarium1_24_02_17_2
             // Update the fish positions array with the fishes that has not been fished yet 
             fishPositions = newFishPositions.ToArray();
             fishDirections = newFishDirections.ToArray();
+            fishRotations = newFishRotations.ToArray();
 
             Console.WriteLine($"Remaining fish count: {fishPositions.Length}");
         }
-
 
 
         private static Vector3 GetRandomDirection()
@@ -575,16 +586,11 @@ namespace Szeminarium1_24_02_17_2
 
         private static unsafe void Window_Render(double deltaTime)
         {
-            //Console.WriteLine($"Render after {deltaTime} [s].");
-
-            // GL here
             Gl.Clear(ClearBufferMask.ColorBufferBit);
             Gl.Clear(ClearBufferMask.DepthBufferBit);
 
 
             Gl.UseProgram(program);
-            /* string texturePath = "metal.png";
-             uint texture = LoadTexture(texturePath);*/
 
             RenderNavBar();
 
@@ -602,12 +608,8 @@ namespace Szeminarium1_24_02_17_2
             for (int i = 0; i < fishPositions.Length; i++)
             {
 
-                DrawFish(fishPositions[i]); // Pass the position of each fish to the DrawFish method
+                DrawFish(fishPositions[i], fishRotations[i]); // Pass the position of each fish to the DrawFish method
             }
-
-            //DrawFish();
-            // *************************** FISH
-
 
             DrawSkyBox();
 
@@ -620,7 +622,6 @@ namespace Szeminarium1_24_02_17_2
 
             controller.Render();
         }
-
 
         private static unsafe void DrawSkyBox()
         {
@@ -693,12 +694,7 @@ namespace Szeminarium1_24_02_17_2
             {
                 Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
             }
-            // OTSIDE VIEW
-            //Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
-
-            //INSIDE VIEW
-            //Gl.Uniform3(location, cameraDescriptorDroneView.Position.X, cameraDescriptorDroneView.Position.Y, cameraDescriptorDroneView.Position.Z);
-
+            
             CheckError();
         }
 
@@ -739,30 +735,16 @@ namespace Szeminarium1_24_02_17_2
             Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
             Gl.BindVertexArray(0);
 
-
-
-
-            ////////////////////////////////////////////////////////////////////////////////
-
-
-            // OLD CODE <3
-            // set material uniform to rubber
-
-            //var modelMatrixForCenterCube = Matrix4X4.CreateScale((float)cubeArrangementModel.CenterCubeScale);
-            /*Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
-            SetModelMatrix(modelMatrix);
-            Gl.BindVertexArray(teapot.Vao);
-            Gl.DrawElements(GLEnum.Triangles, teapot.IndexArrayLength, GLEnum.UnsignedInt, null);
-            Gl.BindVertexArray(0);*/
-
         }
 
         // ****************************************** FISH
-        private static unsafe void DrawFish(Vector3 position)
+        private static unsafe void DrawFish(Vector3 position, float rotationAngle)
         {
-            // Set a model matrix for the fish
-            //Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(2f, 0f, 0f); // Adjust position as needed
-            Matrix4X4<float> modelMatrix = Matrix4X4.CreateTranslation(position.X, position.Y, position.Z); // the fish is under the drone
+            // Create the model matrix with the rotation and translation
+            Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(0.5f) *
+                                           Matrix4X4.CreateRotationY(rotationAngle) *
+                                           Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
+
             SetModelMatrix(modelMatrix);
             Gl.BindVertexArray(fish.Vao);
             Gl.DrawElements(GLEnum.Triangles, fish.IndexArrayLength, GLEnum.UnsignedInt, null);
@@ -835,16 +817,11 @@ namespace Szeminarium1_24_02_17_2
             skyBox = GlCube.CreateInteriorCube(Gl, "");
         }
 
-
-
         private static void Window_Closing()
         {
             teapot.ReleaseGlObject();
             glCubeRotating.ReleaseGlObject();
-
-            // **************************************** FISH
             fish.ReleaseGlObject();
-            // **************************************** FISH
 
         }
 
@@ -864,19 +841,9 @@ namespace Szeminarium1_24_02_17_2
 
         private static unsafe void SetViewMatrix()
         {
-            // outside view
-            //var viewMatrix = Matrix4X4.CreateLookAt(cameraDescriptor.Position, cameraDescriptor.Target, cameraDescriptor.UpVector);
-
-            //inside view
-            //var viewMatrix = Matrix4X4.CreateLookAt(cameraDescriptorDroneView.Position, cameraDescriptorDroneView.Target, cameraDescriptorDroneView.UpVector);
-
             var viewMatrix = insiderView
                 ? Matrix4X4.CreateLookAt(cameraDescriptorDroneView.Position, cameraDescriptorDroneView.Target, cameraDescriptorDroneView.UpVector)
                 : Matrix4X4.CreateLookAt(cameraDescriptor.Position, cameraDescriptor.Target, cameraDescriptor.UpVector);
-
-
-
-
 
             int location = Gl.GetUniformLocation(program, ViewMatrixVariableName);
 
