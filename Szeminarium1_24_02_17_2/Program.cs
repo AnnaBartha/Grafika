@@ -33,8 +33,6 @@ namespace Szeminarium1_24_02_17_2
         // ******************************************** FISH
         private static GlObject fish;
 
-        private static int fishTransformLocation;
-        private static int droneTransformLocation;
 
         private static Random rand = new Random();
 
@@ -52,12 +50,6 @@ namespace Szeminarium1_24_02_17_2
 
         // IN ORDER TO TRACK WHICH TYPE OF VIEW I NEED
         private static bool insiderView = false;
-
-        // TEXTURING
-        private static GL _gl;
-        private static uint _shaderProgram;
-        private static uint _texture;
-        //private static Texture texture = new Texture("metal.png");
 
         //movement
         private static bool isFKeyPressed = false;
@@ -711,6 +703,7 @@ namespace Szeminarium1_24_02_17_2
             Gl.Uniform1(location, Shininess);
             CheckError();
         }
+
 
         private static unsafe void DrawPulsingTeapot(Vector3 position)
         {
