@@ -6,8 +6,6 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
-using StbImageSharp;
-using AssetRipper.TextureDecoder;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -59,6 +57,19 @@ namespace Szeminarium1_24_02_17_2
         private static uint _shaderProgram;
         private static uint _texture;
         //private static Texture texture = new Texture("metal.png");
+
+        //movement
+        private static bool isFKeyPressed = false;
+        private static bool isRKeyPressed = false;
+        private static bool isLKeyPressed = false;
+        private static bool isHKeyPressed = false;
+        private static bool isUpKeyPressed = false;
+        private static bool isDownKeyPressed = false;
+        private static bool isLeftKeyPressed = false;
+        private static bool isRightKeyPressed = false;
+        private static bool isUKeyPressed = false;
+        private static bool isDKeyPressed = false;
+
         // ******************************************** FISH
 
 
@@ -92,17 +103,6 @@ namespace Szeminarium1_24_02_17_2
             windowOptions.PreferredDepthBufferBits = 24;
 
             window = Window.Create(windowOptions);
-            /*//var gl = GL.GetApi(window);
-            var gl = window.CreateOpenGL();
-            var api = GL.GetApi((Silk.NET.Core.Contexts.IGLContextSource)gl);
-            // Create a window and OpenGL context (not shown)
-            // HERE IS MY PROBELM
-            // Load texture
-            var texturePath = "metal.png"; // Path to your texture image
-            var drone = DroneTexture.CreateTexturedDrone(gl, texturePath);*/
-
-
-
 
             window.Load += Window_Load;
             window.Update += Window_Update;
@@ -111,8 +111,6 @@ namespace Szeminarium1_24_02_17_2
 
             window.Run();
         }
-
-        
 
         private static void Window_Load()
         {
@@ -123,6 +121,7 @@ namespace Szeminarium1_24_02_17_2
             foreach (var keyboard in inputContext.Keyboards)
             {
                 keyboard.KeyDown += Keyboard_KeyDown;
+                keyboard.KeyUp += Keyboard_KeyUp;
             }
 
             Gl = window.CreateOpenGL();
@@ -143,14 +142,14 @@ namespace Szeminarium1_24_02_17_2
 
             LinkProgram();
 
-           //Gl.Enable(EnableCap.CullFace);
+            //Gl.Enable(EnableCap.CullFace);
 
             Gl.Enable(EnableCap.DepthTest);
             Gl.DepthFunc(DepthFunction.Lequal);
 
             //********************************************************************
-             fishPositions = new Vector3[]
-             {
+            fishPositions = new Vector3[]
+            {
                 new Vector3(0f, -5f, 0f),   // Fish 1
                 new Vector3(1f, -5f, 5f),   // Fish 2
                 new Vector3(4f, -5f, 1f),   // Fish 3
@@ -176,10 +175,10 @@ namespace Szeminarium1_24_02_17_2
                 new Vector3(-3f, -5f, -3f),  // Fish 23
                 new Vector3(-5f, -5f, -6f),  // Fish 24
                 new Vector3(-7f, -5f, 2f),    // Fish 25
-             };
+            };
 
             dronePosition = new Vector3(0f, 0f, 0f);
-            
+
 
             fishDirections = new Vector3[fishPositions.Length];
             for (int i = 0; i < fishDirections.Length; i++)
@@ -241,49 +240,6 @@ namespace Szeminarium1_24_02_17_2
         }
         // ****************************************************************************
 
-        /*// outside view
-        private static void Keyboard_KeyDown(IKeyboard keyboard, Key key, int arg3)
-        {
-            switch (key)
-            {
-
-                case Key.Left:
-                    cameraDescriptor.DecreaseZYAngle();
-                    break;
-                    ;
-                case Key.Right:
-                    cameraDescriptor.IncreaseZYAngle();
-                    break;
-                case Key.Down:
-                    cameraDescriptor.IncreaseDistance();
-                    break;
-                case Key.Up:
-                    cameraDescriptor.DecreaseDistance();
-                    break;
-                case Key.U:
-                    cameraDescriptor.IncreaseZXAngle();
-                    break;
-                case Key.D:
-                    cameraDescriptor.DecreaseZXAngle();
-                    break;
-                case Key.Space:
-                    cubeArrangementModel.AnimationEnabeld = !cubeArrangementModel.AnimationEnabeld;
-                    break;
-                case Key.L:
-                    updateDronePositionLeft();
-                    break;
-                case Key.R:
-                    updateDronePositionRight();
-                    break;
-                case Key.F:
-                    droneStartedLanding();
-                    break;
-                case Key.H:
-                    droneGoingHigher();
-                    break;
-            }
-        }*/
-
 
         // inside view
         private static void Keyboard_KeyDown(IKeyboard keyboard, Key key, int arg3)
@@ -294,51 +250,108 @@ namespace Szeminarium1_24_02_17_2
                 case Key.Left:
                     if (!insiderView)
                     {
-                        cameraDescriptor.DecreaseZYAngle();
+                        isLeftKeyPressed = true;
                     }
                     break;
                     ;
                 case Key.Right:
                     if (!insiderView)
                     {
-                        cameraDescriptor.IncreaseZYAngle();
+                        isRightKeyPressed = true;
                     }
-                     break;
+                    break;
                 case Key.Down:
                     if (!insiderView)
                     {
-                        cameraDescriptor.IncreaseDistance();
+                        isDownKeyPressed = true;
                     }
-                   break;
-               case Key.Up:
+                    break;
+                case Key.Up:
                     if (!insiderView)
                     {
-                        cameraDescriptor.DecreaseDistance();
+                        isUpKeyPressed = true;
                     }
-                   break;
-               case Key.U:
+                    break;
+                case Key.U:
                     if (!insiderView)
                     {
-                        cameraDescriptor.IncreaseZXAngle();
+                        isUKeyPressed = true;
                     }
-                   break;
-               case Key.D:
+                    break;
+                case Key.D:
                     if (!insiderView)
                     {
-                        cameraDescriptor.DecreaseZXAngle();
+                        isDKeyPressed = true;
                     }
-                   break;
+                    break;
                 case Key.L:
-                    updateDronePositionLeft();
+                    isLKeyPressed = true;
                     break;
                 case Key.R:
-                    updateDronePositionRight();
+                    isRKeyPressed = true;
                     break;
                 case Key.F:
-                    droneStartedLanding();
+                    isFKeyPressed = true;
                     break;
                 case Key.H:
-                    droneGoingHigher();
+                    isHKeyPressed = true;
+                    break;
+            }
+        }
+
+        private static void Keyboard_KeyUp(IKeyboard keyboard, Key key, int arg3)
+        {
+            switch (key)
+            {
+
+                case Key.Left:
+                    if (!insiderView)
+                    {
+                        isLeftKeyPressed = false;
+                    }
+                    break;
+                    ;
+                case Key.Right:
+                    if (!insiderView)
+                    {
+                        isRightKeyPressed = false;
+                    }
+                    break;
+                case Key.Down:
+                    if (!insiderView)
+                    {
+                        isDownKeyPressed = false;
+                    }
+                    break;
+                case Key.Up:
+                    if (!insiderView)
+                    {
+                        isUpKeyPressed = false;
+                    }
+                    break;
+                case Key.U:
+                    if (!insiderView)
+                    {
+                        isUKeyPressed = false;
+                    }
+                    break;
+                case Key.D:
+                    if (!insiderView)
+                    {
+                        isDKeyPressed = false;
+                    }
+                    break;
+                case Key.L:
+                    isLKeyPressed = false;
+                    break;
+                case Key.R:
+                    isRKeyPressed = false;
+                    break;
+                case Key.F:
+                    isFKeyPressed = false;
+                    break;
+                case Key.H:
+                    isHKeyPressed = false;
                     break;
             }
         }
@@ -363,6 +376,18 @@ namespace Szeminarium1_24_02_17_2
                 isPlayingSound = false;
             }
             // ********************************************************************************************
+           
+            
+            if(isLeftKeyPressed) { cameraDescriptor.DecreaseZYAngle(); }
+            if(isRightKeyPressed) { cameraDescriptor.IncreaseZYAngle(); }
+            if(isDownKeyPressed) { cameraDescriptor.IncreaseDistance(); }
+            if(isUpKeyPressed) { cameraDescriptor.DecreaseDistance(); }
+            if(isRKeyPressed) { updateDronePositionRight(); }
+            if(isFKeyPressed) { droneStartedLanding(); }
+            if (isLKeyPressed) { updateDronePositionLeft(); }
+            if(isHKeyPressed) { droneGoingHigher(); }
+            if(isUKeyPressed) { cameraDescriptor.IncreaseZXAngle();  }
+            if(isDKeyPressed) { cameraDescriptor.DecreaseZXAngle();  }
 
         }
         //*************************************************************************************************
@@ -514,8 +539,8 @@ namespace Szeminarium1_24_02_17_2
 
 
             Gl.UseProgram(program);
-           /* string texturePath = "metal.png";
-            uint texture = LoadTexture(texturePath);*/
+            /* string texturePath = "metal.png";
+             uint texture = LoadTexture(texturePath);*/
 
             RenderNavBar();
 
@@ -532,7 +557,7 @@ namespace Szeminarium1_24_02_17_2
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
             {
-    
+
                 DrawFish(fishPositions[i]); // Pass the position of each fish to the DrawFish method
             }
 
@@ -552,7 +577,7 @@ namespace Szeminarium1_24_02_17_2
             controller.Render();
         }
 
-       
+
         private static unsafe void DrawSkyBox()
         {
             Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(400f);
@@ -615,11 +640,12 @@ namespace Szeminarium1_24_02_17_2
                 throw new Exception($"{ViewPosVariableName} uniform not found on shader.");
             }
 
-            if(insiderView)
+            if (insiderView)
             {
                 Gl.Uniform3(location, cameraDescriptorDroneView.Position.X, cameraDescriptorDroneView.Position.Y, cameraDescriptorDroneView.Position.Z);
 
-            } else
+            }
+            else
             {
                 Gl.Uniform3(location, cameraDescriptor.Position.X, cameraDescriptor.Position.Y, cameraDescriptor.Position.Z);
             }
@@ -737,7 +763,7 @@ namespace Szeminarium1_24_02_17_2
             skyBox = GlCube.CreateInteriorCube(Gl, "");
         }
 
-        
+
 
         private static void Window_Closing()
         {
@@ -797,35 +823,6 @@ namespace Szeminarium1_24_02_17_2
             if (error != ErrorCode.NoError)
                 throw new Exception("GL.GetError() returned " + error.ToString());
         }
-
-
-        // ************************************************* TEXTURES
-
-        // Load texture
-        /*private static uint LoadTexture(string path)
-        {
-            using var stream = File.OpenRead(path);
-            var image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
-
-            uint texture;
-            Gl.GenTextures(1, out texture);
-            Gl.BindTexture(TextureTarget.Texture2D, texture);
-
-            //Gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
-
-            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)GLEnum.Repeat);
-            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)GLEnum.Repeat);
-            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)GLEnum.Linear);
-            Gl.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)GLEnum.Linear);
-
-            Gl.GenerateMipmap(TextureTarget.Texture2D);
-
-            Gl.BindTexture(TextureTarget.Texture2D, 0);
-
-            return texture;
-        }*/
-
-        // ************************************************* TEXTURES Finish
 
     }
 }

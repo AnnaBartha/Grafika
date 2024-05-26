@@ -10,9 +10,6 @@ namespace Szeminarium1_24_02_17_2
             uint vao = Gl.GenVertexArray();
             Gl.BindVertexArray(vao);
 
-            /*List<float[]> objVertices;
-            List<int[]> objFaces;*/
-
             // ****************
             List<float[]> objVertices;
             List<float[]> objTextureCoords;
@@ -141,43 +138,6 @@ namespace Szeminarium1_24_02_17_2
             }
         }
 
-        /*private static unsafe void ReadObjDataForTeapot(out List<float[]> objVertices, out List<int[]> objFaces)
-        {
-            objVertices = new List<float[]>();
-            objFaces = new List<int[]>();
-            using (Stream objStream = typeof(ObjResourceReader).Assembly.GetManifestResourceStream("Szeminarium1_24_02_17_2.Resources.drone.obj"))
-            //using (Stream objStream = typeof(ObjResourceReader).Assembly.GetManifestResourceStream("Szeminarium1_24_02_17_2.Resources.teapot.obj"))
-            using (StreamReader objReader = new StreamReader(objStream))
-            {
-                while (!objReader.EndOfStream)
-                {
-                    var line = objReader.ReadLine();
-
-                    if (String.IsNullOrEmpty(line) || line.Trim().StartsWith("#"))
-                        continue;
-
-                    var lineClassifier = line.Substring(0, line.IndexOf(' '));
-                    var lineData = line.Substring(lineClassifier.Length).Trim().Split(' ');
-
-                    switch (lineClassifier)
-                    {
-                        case "v":
-                            float[] vertex = new float[3];
-                            for (int i = 0; i < vertex.Length; ++i)
-                                vertex[i] = float.Parse(lineData[i]);
-                            objVertices.Add(vertex);
-                            break;
-                        case "f":
-                            int[] face = new int[3];
-                            for (int i = 0; i < face.Length; ++i)
-                                face[i] = int.Parse(lineData[i]);
-                            objFaces.Add(face);
-                            break;
-                    }
-                }
-            }
-        }*/
-
         // ********************************************************************************************* READ DRONE OBJ WITH VT AND WN
         private static unsafe void ReadObjDataForTeapot(out List<float[]> objVertices, out List<float[]> objTextureCoords, out List<float[]> objNormals, out List<int[]> objFaces)
         {
@@ -277,7 +237,7 @@ namespace Szeminarium1_24_02_17_2
         }
         // *********************************************************************************************************************
 
-        }
-
     }
+
+}
 

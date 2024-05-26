@@ -12,6 +12,8 @@ namespace Szeminarium1_24_02_17_2
 
         private GL Gl;
 
+        public uint Texture { get; }
+
         public GlObject(uint vao, uint vertices, uint colors, uint indeces, uint indexArrayLength, GL gl)
         {
             this.Vao = vao;
@@ -20,6 +22,17 @@ namespace Szeminarium1_24_02_17_2
             this.Indices = indeces;
             this.IndexArrayLength = indexArrayLength;
             this.Gl = gl;
+        }
+
+        public GlObject(uint vao, uint vertices, uint colors, uint indices, uint indexArrayLength, GL gl, uint texture)
+        {
+            this.Vao = vao;
+            this.Vertices = vertices;
+            this.Colors = colors;
+            this.Indices = indices;
+            this.IndexArrayLength = indexArrayLength;
+            this.Gl = gl;
+            this.Texture = texture;
         }
 
         internal void ReleaseGlObject()

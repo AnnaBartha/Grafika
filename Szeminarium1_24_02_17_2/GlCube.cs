@@ -1,4 +1,5 @@
-﻿using Silk.NET.OpenGL;
+﻿using DocumentFormat.OpenXml.Drawing;
+using Silk.NET.OpenGL;
 using StbImageSharp;
 
 namespace Szeminarium1_24_02_17_2
@@ -160,6 +161,7 @@ namespace Szeminarium1_24_02_17_2
             colorsList.AddRange(faceColor);
             colorsList.AddRange(faceColor);
             colorsList.AddRange(faceColor);
+            
 
             float[] colorArray = colorsList.ToArray();
 
@@ -191,10 +193,11 @@ namespace Szeminarium1_24_02_17_2
             Gl.BindBuffer(GLEnum.ElementArrayBuffer, indices);
             Gl.BufferData(GLEnum.ElementArrayBuffer, (ReadOnlySpan<uint>)indexArray.AsSpan(), GLEnum.StaticDraw);
 
+
             // release array buffer
             Gl.BindBuffer(GLEnum.ArrayBuffer, 0);
             uint indexArrayLength = (uint)indexArray.Length;
-
+              
             return new GlCube(vao, vertices, colors, indices, indexArrayLength, Gl);
         }
 
