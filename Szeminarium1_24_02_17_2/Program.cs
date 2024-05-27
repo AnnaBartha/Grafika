@@ -94,6 +94,8 @@ namespace Szeminarium1_24_02_17_2
 
         static unsafe void Main(string[] args)
         {
+            DroneSound.Initialize();
+
             WindowOptions windowOptions = WindowOptions.Default;
             windowOptions.Title = "Anna's dream came true <3";
             windowOptions.Size = new Vector2D<int>(1000, 1000);
@@ -517,19 +519,6 @@ namespace Szeminarium1_24_02_17_2
                         fishDirections[i] *= -1;
                     }
 
-                    // In order not to swim out of the sea (by x coord)
-                    /*if (fishPositions[i].X > 50)
-                    {
-                        fishPositions[i].X = 50;
-                        fishDirections[i] *= -1;
-                    }
-
-                    if (fishPositions[i].X < -50)
-                    {
-                        fishPositions[i].X = -50;
-                        fishDirections[i] *= -1;
-                    }*/
-
                     // random direction change
                     if (fishPositions[i].X > 10 || fishPositions[i].X < -10 ||
                         fishPositions[i].Y > 10 || fishPositions[i].Y < -10 ||
@@ -551,7 +540,7 @@ namespace Szeminarium1_24_02_17_2
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
                     PlaySound("dissapear.wav");
-
+                    //fishCount--;
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
             }
@@ -611,6 +600,10 @@ namespace Szeminarium1_24_02_17_2
             ImGuiNET.ImGui.SliderFloat("Shininess", ref Shininess, 1, 200);
             ImGuiNET.ImGui.End();
 
+            // Fish count panel
+            ImGuiNET.ImGui.Begin("Fish Counter", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
+            ImGuiNET.ImGui.Text($"Fish Count: {fishPositions.Length}");
+            ImGuiNET.ImGui.End();
 
             controller.Render();
         }

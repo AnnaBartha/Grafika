@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="drone_sound.wav" />
     <None Remove="metal.png" />
     <None Remove="Resources\beach.png" />
     <None Remove="Resources\drone.obj" />
@@ -31,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="drone_sound.wav" />
     <EmbeddedResource Include="metal.png" />
     <EmbeddedResource Include="Resources\beach.png" />
     <EmbeddedResource Include="Resources\drone.obj" />
