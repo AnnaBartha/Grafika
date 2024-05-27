@@ -6,6 +6,7 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
+using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -68,6 +69,19 @@ namespace Szeminarium1_24_02_17_2
         // smooth movemnet drone
         private static Vector3 droneMoveDirection = Vector3.Zero;
         private static float rotationAngle = 0.0f;
+
+        //light parameters
+        /*private static Vector3 ambientLight = new Vector3(0.2f, 0.2f, 0.2f);
+        private static Vector3 diffuseLight = new Vector3(0.5f, 0.5f, 0.5f);
+        private static Vector3 specularLight = new Vector3(1.0f, 1.0f, 1.0f);*/
+        private static Vector3 BackgroundLightColor = new Vector3(1.0f, 1.0f, 1.0f);
+        private static Vector3 AmbientStrength = new Vector3(0.2f);
+        private static Vector3 DiffuseStrength = new Vector3(0.3f);
+        private static Vector3 SpecularStrength = new Vector3(0.5f);
+
+        private const string AmbientStrengthVariableName = "ambientStrength";
+        private const string DiffuseStrengthVariableName = "diffuseStrength";
+        private const string SpecularStrengthVariableName = "specularStrength";
 
         // ******************************************** FISH
 
@@ -194,6 +208,8 @@ namespace Szeminarium1_24_02_17_2
         {
             uint vshader = Gl.CreateShader(ShaderType.VertexShader);
             uint fshader = Gl.CreateShader(ShaderType.FragmentShader);
+
+            //Gl.ShaderSource(fshader, FragmentShaderSource);
 
             Gl.ShaderSource(vshader, ReadShader("VertexShader.vert"));
             Gl.CompileShader(vshader);
@@ -582,6 +598,7 @@ namespace Szeminarium1_24_02_17_2
             SetLightPosition();
             SetViewerPosition();
             SetShininess();
+            SetLigthingParams();
 
             DrawPulsingTeapot(dronePosition);
 
@@ -605,7 +622,38 @@ namespace Szeminarium1_24_02_17_2
             ImGuiNET.ImGui.Text($"Fish Count: {fishPositions.Length}");
             ImGuiNET.ImGui.End();
 
+            // lights
+            ImGui.Begin("Settings", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
+            ImGui.SliderFloat("Shininess", ref Shininess, 1, 200);
+            ImGui.ColorEdit3("Ambient", ref AmbientStrength);
+            ImGui.ColorEdit3("Diffuse", ref DiffuseStrength);
+            ImGui.ColorEdit3("Specular", ref SpecularStrength);
+            ImGui.End();
+
+            /*ImGui.Begin("Settings");
+            ImGui.SliderFloat("Ambient", ref AmbientStrength.X, 0.0f, 1.0f);
+            ImGui.SliderFloat("Diffuse", ref DiffuseStrength.X, 0.0f, 1.0f);
+            ImGui.SliderFloat("Specular", ref SpecularStrength.X, 0.0f, 1.0f);
+            ImGui.End();*/
+
             controller.Render();
+        }
+
+        private static unsafe void SetLigthingParams()
+        {
+            int ambientLoc = Gl.GetUniformLocation(program, AmbientStrengthVariableName);
+            int diffuseLoc = Gl.GetUniformLocation(program, DiffuseStrengthVariableName);
+            int specularLoc = Gl.GetUniformLocation(program, SpecularStrengthVariableName);
+
+            if (ambientLoc == -1 || diffuseLoc == -1 || specularLoc == -1)
+            {
+                throw new Exception($" uniform not found on shader.");
+            }
+
+            Gl.Uniform3(ambientLoc, AmbientStrength);
+            Gl.Uniform3(diffuseLoc, DiffuseStrength);
+            Gl.Uniform3(specularLoc, SpecularStrength);
+            CheckError();
         }
 
         private static unsafe void DrawSkyBox()
