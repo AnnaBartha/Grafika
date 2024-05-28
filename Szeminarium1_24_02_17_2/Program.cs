@@ -6,6 +6,7 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -32,7 +33,6 @@ namespace Szeminarium1_24_02_17_2
 
         // ******************************************** FISH
         private static List<GlObject> fish = new();
-
 
         private static Random rand = new Random();
         //private static Random rand = new Random();
@@ -80,12 +80,13 @@ namespace Szeminarium1_24_02_17_2
         private const string DiffuseStrengthVariableName = "diffuseStrength";
         private const string SpecularStrengthVariableName = "specularStrength";
 
+
+        // fish colors
+        private static List<float[]> fishColors = new List<float[]>();
         // ******************************************** FISH
 
 
         private static GlObject table;
-
-        private static GlCube glCubeRotating;
 
         private static GlCube skyBox;
 
@@ -115,6 +116,18 @@ namespace Szeminarium1_24_02_17_2
             windowOptions.PreferredDepthBufferBits = 24;
 
             window = Window.Create(windowOptions);
+
+            for (int i = 0; i < 25; i++)
+            {
+
+                float[] fishColor = { 1.0f, 0.5f, 0.0f, 1.0f };
+                fishColors.Add(fishColor);
+            }
+
+            for (int i = 0; i < 25; i++)
+            {
+                Console.WriteLine($"Fish at index {i} has a color of {fishColors[i][0]} {fishColors[i][1]} {fishColors[i][0]} {fishColors[i][0]}");
+            }
 
             window.Load += Window_Load;
             window.Update += Window_Update;
@@ -398,6 +411,8 @@ namespace Szeminarium1_24_02_17_2
             cubeArrangementModel.AdvanceTime(deltaTime);
 
             UpdateFishPositions((float)deltaTime);
+           // UpdateFishColor();
+            
 
             controller.Update((float)deltaTime);
 
@@ -501,6 +516,32 @@ namespace Szeminarium1_24_02_17_2
 
         //*************************************************
 
+        /*private static void UpdateFishColor()
+        {
+
+            float[] redColor = { 1.0f, 0.0f, 0.0f, 1.0f };
+
+            // Update the current color in the GlObject to red
+            for (int i = 0; i < 25; i += 1)
+            {
+                //fish.CurrentColors[i] = redColor[0];
+                CurrentColors[i] = redColor;
+                
+            }
+
+           
+
+            for (int i=0; i<25; i++)
+            {
+                Gl.BindBuffer(GLEnum.ArrayBuffer, fish[i].Colors);
+                Gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)fish[i].CurrentColors, GLEnum.DynamicDraw);
+                Gl.BindBuffer(GLEnum.ArrayBuffer, 0);
+
+                Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");
+            }
+            
+        }*/
+
         private static void UpdateFishPositions(float deltaTime)
         {
             // two lists for new fish directions and updated positions
@@ -509,6 +550,9 @@ namespace Szeminarium1_24_02_17_2
 
             // rotation
             List<float> newFishRotations = new List<float>();
+
+            //colors
+            List<float[]> newFishColors = new List<float[]>();
 
             // I iterate through all my fishes that are not fished yet
             for (int i = 0; i < fishPositions.Length; i++)
@@ -549,6 +593,24 @@ namespace Szeminarium1_24_02_17_2
                     newFishDirections.Add(fishDirections[i]);
                     //rotation
                     newFishRotations.Add(rotationAngle);
+
+
+                    // if the fish is still alive i update it's position
+                    float[] fishColor;
+                    if (distanceToDrone <= 10f)
+                    {
+                        // Green color if the fish is within 10 units from the drone
+                        fishColor = new float[] { 0f, 1f, 0f, 1f }; // Green color
+                        Console.WriteLine($"Fish at index {i} close -> green");
+                    }
+                    else
+                    {
+                        // Red color if the fish is further away from the drone
+                        fishColor = new float[] { 1f, 0f, 0f, 1f }; // Red color
+                        Console.WriteLine($"Fish at index {i} far away -> red");
+                    }
+                    newFishColors.Add(fishColor);
+
                 }
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
@@ -556,15 +618,26 @@ namespace Szeminarium1_24_02_17_2
                     //fishCount--;
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
+
+                // changing the fish color if it't distance is way to big
+                
+
             }
 
             // Update the fish positions array with the fishes that has not been fished yet 
             fishPositions = newFishPositions.ToArray();
             fishDirections = newFishDirections.ToArray();
             fishRotations = newFishRotations.ToArray();
+            fishColors = newFishColors;
+
+            /*for (int i = 0; i < newFishColors.Count; i++)
+            {
+                //fish[i].UpdateColor(newFishColors[i]);
+            }*/
 
             Console.WriteLine($"Remaining fish count: {fishPositions.Length}");
         }
+
 
 
         private static Vector3 GetRandomDirection()
@@ -602,9 +675,18 @@ namespace Szeminarium1_24_02_17_2
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
             {
-
+                /*Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");*/
+                /*float[] fishColor = { 1f, 1f, 1f, 1.0f };
+                CurrentColors.Add(fishColor);*/
                 DrawFish(fishPositions[i], fishRotations[i], i); // Pass the position of each fish to the DrawFish method
             }
+
+            /*for (int i = 0; i < fishPositions.Length; i++)
+            {
+                Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");
+
+            }*/
+
 
             DrawSkyBox();
 
@@ -811,7 +893,9 @@ namespace Szeminarium1_24_02_17_2
             // *********************************************************************************8 FISH
 
             //float[] fishColor = { 1.0f, 0.5f, 0.0f, 1.0f }; // Orange color for the fish
-            float[] fishColor = { 1f, 0f, 0f, 1.0f };
+            float[] fishColor = { 1.0f, 0.5f, 0.0f, 1.0f };
+            //CurrentColors.Add(fishColor);
+            
             //fish = ObjResourceReader.CreateFishWithColor(Gl, fishColor);
 
             // in order to make the fish look smaller than theh drone
@@ -827,20 +911,11 @@ namespace Szeminarium1_24_02_17_2
 
             //************************************************************************************
 
-            float[] face1Color = [1f, 0f, 0f, 1.0f];
-            float[] face2Color = [0.0f, 1.0f, 0.0f, 1.0f];
-            float[] face3Color = [0.0f, 0.0f, 1.0f, 1.0f];
-            float[] face4Color = [1.0f, 0.0f, 1.0f, 1.0f];
-            float[] face5Color = [0.0f, 1.0f, 1.0f, 1.0f];
-            float[] face6Color = [1.0f, 1.0f, 0.0f, 1.0f];
-
             float[] tableColor = { 0.5f, 0.5f, 0.5f, 1f };
             //teapot = ObjResourceReader.CreateTeapotWithColor(Gl, face1Color);
             teapot = ObjResourceReader.CreateTeapotWithColor(Gl, tableColor);
 
-            table = GlCube.CreateSquare(Gl, tableColor);
-
-            glCubeRotating = GlCube.CreateCubeWithFaceColors(Gl, face1Color, face2Color, face3Color, face4Color, face5Color, face6Color);
+            //table = GlCube.CreateSquare(Gl, tableColor);
 
             skyBox = GlCube.CreateInteriorCube(Gl, "");
         }
@@ -848,7 +923,7 @@ namespace Szeminarium1_24_02_17_2
         private static void Window_Closing()
         {
             teapot.ReleaseGlObject();
-            glCubeRotating.ReleaseGlObject();
+            //glCubeRotating.ReleaseGlObject();
             foreach(var f in fish)
             {
                 f.ReleaseGlObject();

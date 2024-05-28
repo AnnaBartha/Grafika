@@ -14,6 +14,8 @@ namespace Szeminarium1_24_02_17_2
 
         public uint Texture { get; }
 
+        public float[] CurrentColors { get; set; }  
+
         public GlObject(uint vao, uint vertices, uint colors, uint indeces, uint indexArrayLength, GL gl)
         {
             this.Vao = vao;
