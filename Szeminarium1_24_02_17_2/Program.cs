@@ -6,7 +6,6 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
-using DocumentFormat.OpenXml.Office2019.Drawing.Model3D;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -32,10 +31,11 @@ namespace Szeminarium1_24_02_17_2
 
 
         // ******************************************** FISH
-        private static GlObject fish;
+        private static List<GlObject> fish = new();
 
 
         private static Random rand = new Random();
+        //private static Random rand = new Random();
 
         // Store the current positions and directions of the fishes
         private static Vector3[] fishPositions;
@@ -71,9 +71,6 @@ namespace Szeminarium1_24_02_17_2
         private static float rotationAngle = 0.0f;
 
         //light parameters
-        /*private static Vector3 ambientLight = new Vector3(0.2f, 0.2f, 0.2f);
-        private static Vector3 diffuseLight = new Vector3(0.5f, 0.5f, 0.5f);
-        private static Vector3 specularLight = new Vector3(1.0f, 1.0f, 1.0f);*/
         private static Vector3 BackgroundLightColor = new Vector3(1.0f, 1.0f, 1.0f);
         private static Vector3 AmbientStrength = new Vector3(0.2f);
         private static Vector3 DiffuseStrength = new Vector3(0.3f);
@@ -606,7 +603,7 @@ namespace Szeminarium1_24_02_17_2
             for (int i = 0; i < fishPositions.Length; i++)
             {
 
-                DrawFish(fishPositions[i], fishRotations[i]); // Pass the position of each fish to the DrawFish method
+                DrawFish(fishPositions[i], fishRotations[i], i); // Pass the position of each fish to the DrawFish method
             }
 
             DrawSkyBox();
@@ -630,15 +627,9 @@ namespace Szeminarium1_24_02_17_2
             ImGui.ColorEdit3("Specular", ref SpecularStrength);
             ImGui.End();
 
-            /*ImGui.Begin("Settings");
-            ImGui.SliderFloat("Ambient", ref AmbientStrength.X, 0.0f, 1.0f);
-            ImGui.SliderFloat("Diffuse", ref DiffuseStrength.X, 0.0f, 1.0f);
-            ImGui.SliderFloat("Specular", ref SpecularStrength.X, 0.0f, 1.0f);
-            ImGui.End();*/
-
             controller.Render();
         }
-
+        
         private static unsafe void SetLigthingParams()
         {
             int ambientLoc = Gl.GetUniformLocation(program, AmbientStrengthVariableName);
@@ -772,7 +763,7 @@ namespace Szeminarium1_24_02_17_2
         }
 
         // ****************************************** FISH
-        private static unsafe void DrawFish(Vector3 position, float rotationAngle)
+        private static unsafe void DrawFish(Vector3 position, float rotationAngle, int i)
         {
             // Create the model matrix with the rotation and translation
             Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(0.5f) *
@@ -780,8 +771,8 @@ namespace Szeminarium1_24_02_17_2
                                            Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
 
             SetModelMatrix(modelMatrix);
-            Gl.BindVertexArray(fish.Vao);
-            Gl.DrawElements(GLEnum.Triangles, fish.IndexArrayLength, GLEnum.UnsignedInt, null);
+            Gl.BindVertexArray(fish[i].Vao);
+            Gl.DrawElements(GLEnum.Triangles, fish[i].IndexArrayLength, GLEnum.UnsignedInt, null);
             Gl.BindVertexArray(0);
         }
         // *****************************************************************************************************************
@@ -820,7 +811,7 @@ namespace Szeminarium1_24_02_17_2
             // *********************************************************************************8 FISH
 
             //float[] fishColor = { 1.0f, 0.5f, 0.0f, 1.0f }; // Orange color for the fish
-            float[] fishColor = { 0.7f, 0.3f, 0.7f, 1.0f };
+            float[] fishColor = { 1f, 0f, 0f, 1.0f };
             //fish = ObjResourceReader.CreateFishWithColor(Gl, fishColor);
 
             // in order to make the fish look smaller than theh drone
@@ -828,8 +819,11 @@ namespace Szeminarium1_24_02_17_2
             float scaleY = 0.03f;
             float scaleZ = 0.03f;
 
-            fish = ObjResourceReader.CreateFishWithColor(Gl, fishColor, scaleX, scaleY, scaleZ);
-
+            //fish = ObjResourceReader.CreateFishWithColor(Gl, fishColor, scaleX, scaleY, scaleZ);
+            for(int i = 0; i<= 25; i++)
+            {
+                fish.Add(ObjResourceReader.CreateFishWithColor(Gl, fishColor, scaleX, scaleY, scaleZ));
+            }
 
             //************************************************************************************
 
@@ -855,7 +849,10 @@ namespace Szeminarium1_24_02_17_2
         {
             teapot.ReleaseGlObject();
             glCubeRotating.ReleaseGlObject();
-            fish.ReleaseGlObject();
+            foreach(var f in fish)
+            {
+                f.ReleaseGlObject();
+            }
 
         }
 

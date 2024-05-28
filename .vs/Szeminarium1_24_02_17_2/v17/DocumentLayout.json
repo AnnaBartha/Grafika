@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\",
+  "WorkspaceRootPath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\shaders\\fragmentshader.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\shaders\\fragmentshader.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\shaders\\fragmentshader.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\shaders\\vertexshader.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\shaders\\vertexshader.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\shaders\\vertexshader.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\projekt_verzio_kovetes\\grafika\\szeminarium1_24_02_17_2\\dronesound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\dronesound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\dronesound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -32,24 +32,23 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FragmentShader.frag",
-              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
-              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-05-27T10:28:24.143Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-27T10:28:24.143Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ViewState": "AQIAAGICAAAAAAAAAAAAwIICAAAJAAAA",
+              "ViewState": "AQIAAL8BAAAAAAAAAAAwwNgBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T07:59:14.261Z",
               "EditorCaption": ""
@@ -58,22 +57,21 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "VertexShader.vert",
-              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
-              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-05-27T10:20:40.455Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-27T10:20:40.455Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "DroneSound.cs",
-              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\DroneSound.cs",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\DroneSound.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\DroneSound.cs",
-              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\DroneSound.cs",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\DroneSound.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\DroneSound.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwAsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8vvAO9hEaNQoZbVzzGr5ItBoO2S1JdHJV3z9GcnKA2mO/OeSVYM98n3p6cYd3XBEPuPT8fCgaSDY5q5AJrWlQw==",
+  "dgSpecHash": "uaLGZOievO5Hx8zzJxSpONnrP+1RCj0TgUyemB600RGpzNDc4Q7cpTY2KQdc9MsnshC4WCI+1u/Q0JicwCG1Nw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\Projekt_verzio_kovetes\\Grafika\\Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj",
+  "projectFilePath": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Anna\\.nuget\\packages\\assetripper.texturedecoder\\2.2.0\\assetripper.texturedecoder.2.2.0.nupkg.sha512",
     "C:\\Users\\Anna\\.nuget\\packages\\documentformat.openxml\\3.0.2\\documentformat.openxml.3.0.2.nupkg.sha512",
