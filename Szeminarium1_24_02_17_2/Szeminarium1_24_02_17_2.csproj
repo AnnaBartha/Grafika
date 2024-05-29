@@ -26,8 +26,6 @@
     <None Remove="Resources\skybox.png" />
     <None Remove="Resources\teapot.obj" />
     <None Remove="Shaders\FragmentShader.frag" />
-    <None Remove="Shaders\MyLittleSecondShader.glsl" />
-    <None Remove="Shaders\MyLittleShader.glsl" />
     <None Remove="Shaders\VertexShader.vert" />
   </ItemGroup>
 
@@ -49,12 +47,6 @@
     <EmbeddedResource Include="Resources\teapot.obj" />
     <EmbeddedResource Include="Resources\drone3.obj" />
     <EmbeddedResource Include="Shaders\FragmentShader.frag" />
-    <EmbeddedResource Include="Shaders\MyLittleSecondShader.glsl">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Shaders\MyLittleShader.glsl">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="Shaders\VertexShader.vert" />
   </ItemGroup>
 

@@ -11,6 +11,8 @@ uniform vec3 specularStrength;
 
 uniform sampler2D uTexture;
 
+uniform vec4 objectColor;
+
 out vec4 FragColor;
 
 in vec4 outCol;
@@ -35,7 +37,7 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess) / max(dot(norm,viewDir), -dot(norm,lightDir));
     vec3 specular = specularStrength * spec * lightColor;  
 
-    vec3 result = (ambient + diffuse + specular) * outCol.xyz;
+    vec3 result = (ambient + diffuse + specular) * objectColor.xyz;
 
     // textrure color
     vec4 textColor = texture(uTexture, outTex);

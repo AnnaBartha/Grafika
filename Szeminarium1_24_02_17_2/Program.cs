@@ -6,7 +6,6 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Numerics;
 using NAudio.Wave;
-using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -71,7 +70,7 @@ namespace Szeminarium1_24_02_17_2
         private static float rotationAngle = 0.0f;
 
         //light parameters
-        private static Vector3 BackgroundLightColor = new Vector3(1.0f, 1.0f, 1.0f);
+       // private static Vector3 BackgroundLightColor = new Vector3(1.0f, 1.0f, 1.0f);
         private static Vector3 AmbientStrength = new Vector3(0.2f);
         private static Vector3 DiffuseStrength = new Vector3(0.3f);
         private static Vector3 SpecularStrength = new Vector3(0.5f);
@@ -86,7 +85,7 @@ namespace Szeminarium1_24_02_17_2
         // ******************************************** FISH
 
 
-        private static GlObject table;
+        //private static GlObject table;
 
         private static GlCube skyBox;
 
@@ -103,6 +102,8 @@ namespace Szeminarium1_24_02_17_2
         private const string LightPositionVariableName = "lightPos";
         private const string ViewPosVariableName = "viewPos";
         private const string ShininessVariableName = "shininess";
+
+        private const string ObjectColorVariableName = "objectColor";
 
         static unsafe void Main(string[] args)
         {
@@ -172,7 +173,7 @@ namespace Szeminarium1_24_02_17_2
             Gl.Enable(EnableCap.DepthTest);
             Gl.DepthFunc(DepthFunction.Lequal);
 
-            //********************************************************************
+
             fishPositions = new Vector3[]
             {
                 new Vector3(0f, -5f, 0f),   // Fish 1
@@ -211,15 +212,12 @@ namespace Szeminarium1_24_02_17_2
             {
                 fishDirections[i] = GetRandomDirection();
             }
-            // **********************************************************************
         }
 
         private static void LinkProgram()
         {
             uint vshader = Gl.CreateShader(ShaderType.VertexShader);
             uint fshader = Gl.CreateShader(ShaderType.FragmentShader);
-
-            //Gl.ShaderSource(fshader, FragmentShaderSource);
 
             Gl.ShaderSource(vshader, ReadShader("VertexShader.vert"));
             Gl.CompileShader(vshader);
@@ -252,8 +250,6 @@ namespace Szeminarium1_24_02_17_2
                 return shaderReader.ReadToEnd();
         }
 
-
-        // ************************************** NAVBAR FOR CAMERA TYPE
         private static void RenderNavBar()
         {
             ImGui.Begin("Camera Navigation");
@@ -266,10 +262,6 @@ namespace Szeminarium1_24_02_17_2
 
             ImGui.End();
         }
-        // ****************************************************************************
-
-
-        // inside view
         private static void Keyboard_KeyDown(IKeyboard keyboard, Key key, int arg3)
         {
             switch (key)
@@ -321,11 +313,9 @@ namespace Szeminarium1_24_02_17_2
                     isRKeyPressed = true;
                     break;
                 case Key.F:
-                    //droneMoveDirection = new Vector3(0, -1, 0);
                     isFKeyPressed = true;
                     break;
                 case Key.H:
-                    //droneMoveDirection = new Vector3(0, 1, 0);
                     isHKeyPressed = true;
                     break;
                 case Key.E:
@@ -440,12 +430,9 @@ namespace Szeminarium1_24_02_17_2
             if (hatra) { updateDronePositionBackward(); }
 
         }
-        //*************************************************************************************************
         private static void updateDronePositionLeft()
         {
             dronePosition = new Vector3(dronePosition.X + 0.5f, dronePosition.Y, dronePosition.Z);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -453,8 +440,6 @@ namespace Szeminarium1_24_02_17_2
         private static void updateDronePositionRight()
         {
             dronePosition = new Vector3(dronePosition.X - 0.5f, dronePosition.Y, dronePosition.Z);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -462,8 +447,6 @@ namespace Szeminarium1_24_02_17_2
         private static void droneStartedLanding()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y - 0.5f, dronePosition.Z);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -471,8 +454,6 @@ namespace Szeminarium1_24_02_17_2
         private static void droneGoingHigher()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y + 0.5f, dronePosition.Z);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -480,8 +461,6 @@ namespace Szeminarium1_24_02_17_2
         private static void updateDronePositionForward()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y, dronePosition.Z - 0.5f);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -489,8 +468,6 @@ namespace Szeminarium1_24_02_17_2
         private static void updateDronePositionBackward()
         {
             dronePosition = new Vector3(dronePosition.X, dronePosition.Y, dronePosition.Z + 0.5f);
-
-            // ********************************************* update also the camera positin
             Vector3D<float> convertedPosition = new Vector3D<float>(dronePosition.X, dronePosition.Y, dronePosition.Z);
             cameraDescriptorDroneView.SetDronePosition(convertedPosition);
         }
@@ -514,34 +491,6 @@ namespace Szeminarium1_24_02_17_2
             isPlayingSound = true;
         }
 
-        //*************************************************
-
-        /*private static void UpdateFishColor()
-        {
-
-            float[] redColor = { 1.0f, 0.0f, 0.0f, 1.0f };
-
-            // Update the current color in the GlObject to red
-            for (int i = 0; i < 25; i += 1)
-            {
-                //fish.CurrentColors[i] = redColor[0];
-                CurrentColors[i] = redColor;
-                
-            }
-
-           
-
-            for (int i=0; i<25; i++)
-            {
-                Gl.BindBuffer(GLEnum.ArrayBuffer, fish[i].Colors);
-                Gl.BufferData(GLEnum.ArrayBuffer, (ReadOnlySpan<float>)fish[i].CurrentColors, GLEnum.DynamicDraw);
-                Gl.BindBuffer(GLEnum.ArrayBuffer, 0);
-
-                Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");
-            }
-            
-        }*/
-
         private static void UpdateFishPositions(float deltaTime)
         {
             // two lists for new fish directions and updated positions
@@ -561,7 +510,7 @@ namespace Szeminarium1_24_02_17_2
                 float distanceToDrone = Vector3.Distance(fishPositions[i], dronePosition);
 
                 // Check if the fish is further than 5 units from the drone
-                if (distanceToDrone >= 5f)
+                if (distanceToDrone >= 3f)
                 {
                     // THE FISH IS STILL ALIVE
                     // I update the position of the fish
@@ -597,18 +546,39 @@ namespace Szeminarium1_24_02_17_2
 
                     // if the fish is still alive i update it's position
                     float[] fishColor;
+
+                    // the fish is close to the drone
                     if (distanceToDrone <= 10f)
                     {
                         // Green color if the fish is within 10 units from the drone
                         fishColor = new float[] { 0f, 1f, 0f, 1f }; // Green color
-                        Console.WriteLine($"Fish at index {i} close -> green");
+                        //Console.WriteLine($"Fish at index {i} close -> green");
                     }
-                    else
+                    else if (distanceToDrone > 10 && distanceToDrone <= 12)
                     {
-                        // Red color if the fish is further away from the drone
-                        fishColor = new float[] { 1f, 0f, 0f, 1f }; // Red color
-                        Console.WriteLine($"Fish at index {i} far away -> red");
+                        //the fish is not that close to drone
+                        fishColor = new float[] { 0.2f, 0.8f, 0f, 1f }; // intermediate #1
+                       // Console.WriteLine($"Fish at index {i} far away -> red");
                     }
+                    else if(distanceToDrone > 12 && distanceToDrone <= 14)
+                    {
+                        //the fish is not that close to drone
+                        fishColor = new float[] { 0.4f, 0.6f, 0f, 1f }; // intermediate #1
+                    }
+                    else if(distanceToDrone > 14 && distanceToDrone <= 16)
+                    {
+                        fishColor = new float[] { 0.6f, 0.4f, 0f, 1f };
+                    }
+                    else if (distanceToDrone > 16 && distanceToDrone <= 18)
+                    {
+                        fishColor = new float[] { 0.8f, 0.2f, 0f, 1f };
+                    }
+                    else 
+                    {
+                        // the fish is not close to my drone
+                        fishColor = new float[] { 1f, 0f, 0f, 1f };
+                    }
+
                     newFishColors.Add(fishColor);
 
                 }
@@ -618,10 +588,7 @@ namespace Szeminarium1_24_02_17_2
                     //fishCount--;
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
                 }
-
-                // changing the fish color if it't distance is way to big
                 
-
             }
 
             // Update the fish positions array with the fishes that has not been fished yet 
@@ -630,14 +597,9 @@ namespace Szeminarium1_24_02_17_2
             fishRotations = newFishRotations.ToArray();
             fishColors = newFishColors;
 
-            /*for (int i = 0; i < newFishColors.Count; i++)
-            {
-                //fish[i].UpdateColor(newFishColors[i]);
-            }*/
 
             Console.WriteLine($"Remaining fish count: {fishPositions.Length}");
         }
-
 
 
         private static Vector3 GetRandomDirection()
@@ -649,7 +611,6 @@ namespace Szeminarium1_24_02_17_2
             Vector3 direction = new Vector3(randomX, randomY, randomZ);
             return Vector3.Normalize(direction);
         }
-        //********************************************************************************************
 
         private static unsafe void Window_Render(double deltaTime)
         {
@@ -670,24 +631,17 @@ namespace Szeminarium1_24_02_17_2
             SetShininess();
             SetLigthingParams();
 
+            SetObjectColor(new Vector4(0.5f, 0.5f, 0.5f, 1.0f));
             DrawPulsingTeapot(dronePosition);
 
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
             {
-                /*Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");*/
-                /*float[] fishColor = { 1f, 1f, 1f, 1.0f };
-                CurrentColors.Add(fishColor);*/
+                SetObjectColor(new Vector4(fishColors[i][0], fishColors[i][1], fishColors[i][2], fishColors[i][3]));
                 DrawFish(fishPositions[i], fishRotations[i], i); // Pass the position of each fish to the DrawFish method
             }
 
-            /*for (int i = 0; i < fishPositions.Length; i++)
-            {
-                Console.WriteLine($"Fish at index {i} has a color of {CurrentColors[i][0]} {CurrentColors[i][1]} {CurrentColors[i][0]} {CurrentColors[i][0]}");
-
-            }*/
-
-
+            SetObjectColor(new Vector4(0.0f, 0.0f, 0.0f, 1.0f));
             DrawSkyBox();
 
             //ImGuiNET.ImGui.ShowDemoWindow();
@@ -885,6 +839,19 @@ namespace Szeminarium1_24_02_17_2
                 throw new Exception($"{NormalMatrixVariableName} uniform not found on shader.");
             }
             Gl.UniformMatrix3(location, 1, false, (float*)&normalMatrix);
+            CheckError();
+        }
+
+        // Setting every object + skybox color based on their rgba colors
+        private static unsafe void SetObjectColor(Vector4 color)
+        {
+            int location = Gl.GetUniformLocation(program, ObjectColorVariableName);
+            if (location == -1)
+            {
+                throw new Exception($"{ModelMatrixVariableName} uniform not found on shader.");
+            }
+
+            Gl.Uniform4(location, ref color);
             CheckError();
         }
 
