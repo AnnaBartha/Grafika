@@ -220,8 +220,6 @@ namespace Szeminarium1_24_02_17_2
                 new Vector3(3f, -5f, -2f),   // Whate 1
                 new Vector3(-1f, -5f, 4f),   // Whate 2
                 new Vector3(-5f, -5f, 9f),   // Whate 3
-                new Vector3(8f, -5f, -3f),  // Whate 4
-                new Vector3(-10f, -5f, 6f),   // Whate 5
             };
 
             whaleRotations = new float[whalePosition.Length];
@@ -551,14 +549,12 @@ namespace Szeminarium1_24_02_17_2
                     //rotation
                     newWhaleRotations.Add(rotationAngle);
 
-
-
                 }
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
                     PlaySound("dissapear.wav");
                     Console.WriteLine($"whale at index {i} removed, Distance to drone: {distanceToDrone}");
-                    //playerScore = playerScore + 2;
+                    playerScore = playerScore + 10;
                 }
 
             }
@@ -571,14 +567,6 @@ namespace Szeminarium1_24_02_17_2
             Console.WriteLine($"Remaining whale count: {whalePosition.Length}");
 
         }
-
-
-
-
-
-
-
-
 
         private static void UpdateFishPositions(float deltaTime)
         {
@@ -598,8 +586,20 @@ namespace Szeminarium1_24_02_17_2
                 // I calculate the distance between the drone and my fish
                 float distanceToDrone = Vector3.Distance(fishPositions[i], dronePosition);
 
+                float distanceToOneWhale = 100f;
+                for(int j=0; j<whalePosition.Length; j++)
+                {
+                    float actualDistance = Vector3.Distance(fishPositions[i], whalePosition[j]);
+                    if(actualDistance < distanceToOneWhale)
+                    {
+                        // looking for the closest whale
+                        distanceToOneWhale = actualDistance;
+                    }
+                }
+
+
                 // Check if the fish is further than 5 units from the drone
-                if (distanceToDrone >= 3f)
+                if (distanceToDrone >= 3f && distanceToOneWhale >= 3f)
                 {
                     // THE FISH IS STILL ALIVE
                     // I update the position of the fish
@@ -673,10 +673,17 @@ namespace Szeminarium1_24_02_17_2
                 }
                 else if (!isPlayingSound)  // Only play sound if not already playing
                 {
-                    PlaySound("dissapear.wav");
-                    //fishCount--;
-                    Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
-                    playerScore = playerScore + 2;
+                    // the fish was fished by drone
+                    if(distanceToOneWhale > 3f && distanceToDrone < 3f)
+                    {
+                        PlaySound("dissapear.wav");
+                        Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
+                        playerScore = playerScore + 2;
+                    } else
+                    {
+                        //playerScore = playerScore - 1;
+                    }
+                   
                 }
                 
             }
@@ -763,7 +770,8 @@ namespace Szeminarium1_24_02_17_2
 
             // Player Score
             ImGuiNET.ImGui.Begin("Player Score", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
-            ImGuiNET.ImGui.Text($"Player Score: {((25 - fishPositions.Length) * 2) + ((5 - whalePosition.Length) * 10)}");
+            //ImGuiNET.ImGui.Text($"Player Score: {((25 - fishPositions.Length) * 2) + ((5 - whalePosition.Length) * 10)}");
+            ImGuiNET.ImGui.Text($"Player Score: {playerScore}");
             ImGuiNET.ImGui.End();
 
             // lights
@@ -1023,7 +1031,7 @@ namespace Szeminarium1_24_02_17_2
              scaleX = 0.2f;
              scaleY = 0.2f;
              scaleZ = 0.2f;
-            for(int i = 0; i<=5; i++)
+            for(int i = 0; i<3; i++)
             {
                 whale.Add(ObjResourceReader.CreateWhaleWithColor(Gl, tableColor, scaleX, scaleY, scaleZ));
             }
