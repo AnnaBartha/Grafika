@@ -28,10 +28,14 @@ namespace Szeminarium1_24_02_17_2
         private static uint program;
 
         private static GlObject teapot;
+        //private static GlObject whale;
+        private static List<GlObject> whale = new();
 
 
         // ******************************************** FISH
         private static List<GlObject> fish = new();
+
+        
 
         private static Random rand = new Random();
         //private static Random rand = new Random();
@@ -39,9 +43,12 @@ namespace Szeminarium1_24_02_17_2
         // Store the current positions and directions of the fishes
         private static Vector3[] fishPositions;
         private static Vector3 dronePosition;
+        private static Vector3[] whalePosition;
         private static Vector3[] fishDirections;
+        private static Vector3[] whaleDirections;
         private const float fishSpeed = 0.35f; // Adjust the speed of the fishes
         private static float[] fishRotations;
+        private static float[] whaleRotations;
 
         // sounds
         private static WaveOutEvent outputDevice;
@@ -208,11 +215,26 @@ namespace Szeminarium1_24_02_17_2
 
             dronePosition = new Vector3(0f, 0f, 0f);
 
+            whalePosition = new Vector3[]
+            {
+                new Vector3(3f, -5f, -2f),   // Whate 1
+                new Vector3(-1f, -5f, 4f),   // Whate 2
+                new Vector3(-5f, -5f, 9f),   // Whate 3
+                new Vector3(8f, -5f, -3f),  // Whate 4
+                new Vector3(-10f, -5f, 6f),   // Whate 5
+            };
 
+            whaleRotations = new float[whalePosition.Length];
             fishDirections = new Vector3[fishPositions.Length];
             for (int i = 0; i < fishDirections.Length; i++)
             {
                 fishDirections[i] = GetRandomDirection();
+            }
+
+            whaleDirections = new Vector3[whalePosition.Length];
+            for(int i= 0; i< whaleDirections.Length; i++)
+            {
+                whaleDirections[i] = GetRandomDirection();
             }
         }
 
@@ -403,6 +425,7 @@ namespace Szeminarium1_24_02_17_2
             cubeArrangementModel.AdvanceTime(deltaTime);
 
             UpdateFishPositions((float)deltaTime);
+            UpdateWhalePositions((float)deltaTime);
            // UpdateFishColor();
             
 
@@ -492,6 +515,70 @@ namespace Szeminarium1_24_02_17_2
             outputDevice.Play();
             isPlayingSound = true;
         }
+
+        private static void UpdateWhalePositions(float deltaTime)
+        {
+            List<Vector3> newWhalePositions = new List<Vector3>();
+            List<Vector3> newWhaleDirections = new List<Vector3>();
+            List<float> newWhaleRotations = new List<float>();
+            for (int i = 0; i < whalePosition.Length; i++)
+            {
+                float distanceToDrone = Vector3.Distance(whalePosition[i], dronePosition);
+
+                if (distanceToDrone >= 3f)
+                {
+                    whalePosition[i] += whaleDirections[i] * 0.35f * deltaTime;
+
+                    if (whalePosition[i].Y > -2)
+                    {
+                        whalePosition[i].Y = -2;
+                        whaleDirections[i] *= -1;
+                    }
+
+                    // random direction change
+                    if (whalePosition[i].X > 10 || whalePosition[i].X < -10 ||
+                        whalePosition[i].Y > 10 || whalePosition[i].Y < -10 ||
+                        whalePosition[i].Z > 10 || whalePosition[i].Z < -10)
+                    {
+                        whaleDirections[i] = GetRandomDirection();
+                    }
+
+                    // rotation
+                    float rotationAngle = MathF.Atan2(-whaleDirections[i].X, whaleDirections[i].Z);
+                    whaleRotations[i] = rotationAngle;
+                    newWhalePositions.Add(whalePosition[i]);
+                    newWhaleDirections.Add(whaleDirections[i]);
+                    //rotation
+                    newWhaleRotations.Add(rotationAngle);
+
+
+
+                }
+                else if (!isPlayingSound)  // Only play sound if not already playing
+                {
+                    PlaySound("dissapear.wav");
+                    Console.WriteLine($"whale at index {i} removed, Distance to drone: {distanceToDrone}");
+                    //playerScore = playerScore + 2;
+                }
+
+            }
+            whalePosition = newWhalePositions.ToArray();
+            whaleDirections = newWhaleDirections.ToArray();
+            whaleRotations = newWhaleRotations.ToArray();
+           
+
+
+            Console.WriteLine($"Remaining whale count: {whalePosition.Length}");
+
+        }
+
+
+
+
+
+
+
+
 
         private static void UpdateFishPositions(float deltaTime)
         {
@@ -637,6 +724,17 @@ namespace Szeminarium1_24_02_17_2
             SetObjectColor(new Vector4(0.5f, 0.5f, 0.5f, 1.0f));
             DrawPulsingTeapot(dronePosition);
 
+            // whale
+           // SetObjectColor(new Vector4(0.5f, 0.5f, 0.5f, 1.0f));
+           // DrawWhale(whalePosition, fishRotations[0]);
+
+            // render multiple whale objects
+            for(int i=0; i< whalePosition.Length; i++)
+            {
+                SetObjectColor(new Vector4(1.0f, 0.8431f, 0.0f, 1.0f));
+                DrawWhale(whalePosition[i], whaleRotations[0], i);
+            }
+
             // Render multiple fish at different positions
             for (int i = 0; i < fishPositions.Length; i++)
             {
@@ -658,9 +756,14 @@ namespace Szeminarium1_24_02_17_2
             ImGuiNET.ImGui.Text($"Fish Count: {fishPositions.Length}");
             ImGuiNET.ImGui.End();
 
+            // Whale count panel
+            ImGuiNET.ImGui.Begin("Whale Counter", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
+            ImGuiNET.ImGui.Text($"Whale Count: {whalePosition.Length}");
+            ImGuiNET.ImGui.End();
+
             // Player Score
             ImGuiNET.ImGui.Begin("Player Score", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
-            ImGuiNET.ImGui.Text($"Player Score: {(25 - fishPositions.Length) * 2}");
+            ImGuiNET.ImGui.Text($"Player Score: {((25 - fishPositions.Length) * 2) + ((5 - whalePosition.Length) * 10)}");
             ImGuiNET.ImGui.End();
 
             // lights
@@ -806,6 +909,32 @@ namespace Szeminarium1_24_02_17_2
 
         }
 
+        private static unsafe void DrawWhale(Vector3 position, float rotationAngle, int i)
+        {
+            // calculate the target rotation angle based on the movement direction
+            /*float targetRotationAngle = MathF.Atan2(-droneMoveDirection.X, droneMoveDirection.Z);
+            if (droneMoveDirection == Vector3.Zero)
+            {
+                targetRotationAngle = rotationAngle;
+            }
+            else
+            {
+                rotationAngle = targetRotationAngle;
+            }*/
+
+            // model matrix for the dragon with translation and rotation
+            // Create the model matrix with the rotation and translation
+            Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(0.5f) *
+                                           Matrix4X4.CreateRotationY(rotationAngle) *
+                                           Matrix4X4.CreateTranslation(position.X, position.Y, position.Z);
+
+            SetModelMatrix(modelMatrix);
+            Gl.BindVertexArray(whale[i].Vao);
+            Gl.DrawElements(GLEnum.Triangles, whale[i].IndexArrayLength, GLEnum.UnsignedInt, null);
+            Gl.BindVertexArray(0);
+
+        }
+
         // ****************************************** FISH
         private static unsafe void DrawFish(Vector3 position, float rotationAngle, int i)
         {
@@ -890,6 +1019,16 @@ namespace Szeminarium1_24_02_17_2
             //teapot = ObjResourceReader.CreateTeapotWithColor(Gl, face1Color);
             teapot = ObjResourceReader.CreateTeapotWithColor(Gl, tableColor);
 
+            // whale
+             scaleX = 0.2f;
+             scaleY = 0.2f;
+             scaleZ = 0.2f;
+            for(int i = 0; i<=5; i++)
+            {
+                whale.Add(ObjResourceReader.CreateWhaleWithColor(Gl, tableColor, scaleX, scaleY, scaleZ));
+            }
+            //whale = ObjResourceReader.CreateWhaleWithColor(Gl, tableColor, scaleX, scaleY, scaleZ);
+
             //table = GlCube.CreateSquare(Gl, tableColor);
 
             skyBox = GlCube.CreateInteriorCube(Gl, "");
@@ -903,6 +1042,11 @@ namespace Szeminarium1_24_02_17_2
             {
                 f.ReleaseGlObject();
             }
+            foreach(var w in whale)
+            {
+                w.ReleaseGlObject();
+            }
+            //whale.ReleaseGlObject();
 
         }
 

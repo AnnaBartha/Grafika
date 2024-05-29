@@ -15,6 +15,7 @@
     <None Remove="Resources\drone.obj" />
     <None Remove="Resources\fish.obj" />
     <None Remove="Resources\metal.png" />
+    <None Remove="Resources\whale.obj" />
     <None Remove="Shaders\FragmentShader.frag" />
     <None Remove="Shaders\VertexShader.vert" />
   </ItemGroup>
@@ -26,6 +27,7 @@
     <EmbeddedResource Include="Resources\drone.obj" />
     <EmbeddedResource Include="Resources\fish.obj" />
     <EmbeddedResource Include="Resources\metal.png" />
+    <EmbeddedResource Include="Resources\whale.obj" />
     <EmbeddedResource Include="Shaders\FragmentShader.frag" />
     <EmbeddedResource Include="Shaders\VertexShader.vert" />
   </ItemGroup>

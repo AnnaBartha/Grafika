@@ -1,5 +1,6 @@
 ﻿using Silk.NET.Maths;
 using Silk.NET.OpenGL;
+using System.Globalization;
 
 namespace Szeminarium1_24_02_17_2
 {
@@ -61,6 +62,39 @@ namespace Szeminarium1_24_02_17_2
         }
         // *********************************************************************************************
 
+        public static unsafe GlObject CreateWhaleWithColor(GL Gl, float[] faceColor, float scaleX, float scaleY, float scaleZ)
+        {
+            uint vao = Gl.GenVertexArray();
+            Gl.BindVertexArray(vao);
+
+            // ****************
+            List<float[]> objVertices;
+            List<float[]> objTextureCoords;
+            List<float[]> objNormals;
+            List<int[]> objFaces;
+            //*****************
+
+            ReadObjDataForWhale(out objVertices, out objTextureCoords, out objNormals, out objFaces);
+
+
+            List<float> glVertices = new List<float>();
+            List<float> glColors = new List<float>();
+            List<uint> glIndices = new List<uint>();
+
+            CreateGlArraysFromObjArrays(faceColor, objVertices, objFaces, glVertices, glColors, glIndices);
+
+            // **************************** scaling
+            // Apply scaling to the glVertices
+            for (int i = 0; i < glVertices.Count; i += 6) // assuming each vertex has 6 elements (3 for position, 3 for normal)
+            {
+                glVertices[i] *= scaleX;
+                glVertices[i + 1] *= scaleY;
+                glVertices[i + 2] *= scaleZ;
+            }
+            //*************************************
+
+            return CreateOpenGlObject(Gl, vao, glVertices, glColors, glIndices);
+        }
 
 
         private static unsafe GlObject CreateOpenGlObject(GL Gl, uint vao, List<float> glVertices, List<float> glColors, List<uint> glIndices)
@@ -236,6 +270,94 @@ namespace Szeminarium1_24_02_17_2
             }
         }
         // *********************************************************************************************************************
+
+
+        //************************ READ GOLDEN FISH OBJECT
+        // ********************************************************************************************* READ DRONE OBJ WITH VT AND WN
+        private static unsafe void ReadObjDataForWhale(out List<float[]> objVertices, out List<float[]> objTextureCoords, out List<float[]> objNormals, out List<int[]> objFaces)
+        {
+            objVertices = new List<float[]>();
+            objTextureCoords = new List<float[]>();
+            objNormals = new List<float[]>();
+            objFaces = new List<int[]>();
+
+            using (Stream objStream = typeof(ObjResourceReader).Assembly.GetManifestResourceStream("Szeminarium1_24_02_17_2.Resources.whale.obj"))
+            using (StreamReader objReader = new StreamReader(objStream))
+            {
+                while (!objReader.EndOfStream)
+                {
+                    var line = objReader.ReadLine();
+
+                    if (String.IsNullOrEmpty(line) || line.Trim().StartsWith("#"))
+                        continue;
+
+                    var parts = line.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var lineClassifier = parts[0];
+                    var lineData = parts.Skip(1).ToArray();
+
+                    switch (lineClassifier)
+                    {
+                        case "v":
+                            if (lineData.Length < 3)
+                                throw new FormatException($"Invalid vertex data: {line}");
+
+                            float[] vertex = new float[3];
+                            for (int i = 0; i < vertex.Length; ++i)
+                                vertex[i] = float.Parse(lineData[i], CultureInfo.InvariantCulture);
+                            objVertices.Add(vertex);
+                            break;
+
+                        case "vt":
+                            float[] textureCoord = new float[lineData.Length];
+                            for (int i = 0; i < textureCoord.Length; ++i)
+                                textureCoord[i] = float.Parse(lineData[i], CultureInfo.InvariantCulture);
+                            objTextureCoords.Add(textureCoord);
+                            break;
+
+                        case "vn":
+                            if (lineData.Length < 3)
+                                throw new FormatException($"Invalid normal data: {line}");
+
+                            float[] normal = new float[3];
+                            for (int i = 0; i < normal.Length; ++i)
+                                normal[i] = float.Parse(lineData[i], CultureInfo.InvariantCulture);
+                            objNormals.Add(normal);
+                            break;
+
+                        case "f":
+                            int[] face = new int[lineData.Length];
+                            for (int i = 0; i < face.Length; ++i)
+                            {
+                                var vertexData = lineData[i].Split('/');
+                                if (vertexData.Length < 1)
+                                    throw new FormatException($"Invalid face data: {line}");
+
+                                // Parse vertex index
+                                face[i] = int.Parse(vertexData[0], CultureInfo.InvariantCulture);
+
+                                // Additional parsing for texture and normal indices can be added here if needed
+                                // For example, to parse the texture coordinate index:
+                                // if (vertexData.Length > 1 && !string.IsNullOrEmpty(vertexData[1]))
+                                // {
+                                //     int textureIndex = int.Parse(vertexData[1], CultureInfo.InvariantCulture);
+                                //     // Store or use the texture index as needed
+                                // }
+
+                                // To parse the normal index:
+                                // if (vertexData.Length > 2 && !string.IsNullOrEmpty(vertexData[2]))
+                                // {
+                                //     int normalIndex = int.Parse(vertexData[2], CultureInfo.InvariantCulture);
+                                //     // Store or use the normal index as needed
+                                // }
+                            }
+                            objFaces.Add(face);
+                            break;
+                    }
+                }
+            }
+        }
+
+        // ********************************************************************************************* READ DRONE OBJ WITH VT AND WN FINISH
 
     }
 
