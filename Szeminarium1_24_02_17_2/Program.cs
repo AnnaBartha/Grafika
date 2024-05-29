@@ -105,6 +105,8 @@ namespace Szeminarium1_24_02_17_2
 
         private const string ObjectColorVariableName = "objectColor";
 
+        private static int playerScore = 0;
+        
         static unsafe void Main(string[] args)
         {
             DroneSound.Initialize();
@@ -587,6 +589,7 @@ namespace Szeminarium1_24_02_17_2
                     PlaySound("dissapear.wav");
                     //fishCount--;
                     Console.WriteLine($"Fish at index {i} removed, Distance to drone: {distanceToDrone}");
+                    playerScore = playerScore + 2;
                 }
                 
             }
@@ -653,6 +656,11 @@ namespace Szeminarium1_24_02_17_2
             // Fish count panel
             ImGuiNET.ImGui.Begin("Fish Counter", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
             ImGuiNET.ImGui.Text($"Fish Count: {fishPositions.Length}");
+            ImGuiNET.ImGui.End();
+
+            // Player Score
+            ImGuiNET.ImGui.Begin("Player Score", ImGuiWindowFlags.AlwaysAutoResize | ImGuiWindowFlags.NoTitleBar);
+            ImGuiNET.ImGui.Text($"Player Score: {(25 - fishPositions.Length) * 2}");
             ImGuiNET.ImGui.End();
 
             // lights

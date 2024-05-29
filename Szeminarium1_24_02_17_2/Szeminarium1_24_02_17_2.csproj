@@ -13,18 +13,8 @@
     <None Remove="metal.png" />
     <None Remove="Resources\beach.png" />
     <None Remove="Resources\drone.obj" />
-    <None Remove="Resources\drone1.obj" />
-    <None Remove="Resources\drone2.obj" />
-    <None Remove="Resources\drone3.obj" />
-    <None Remove="Resources\drone4.obj" />
-    <None Remove="Resources\drone5.obj" />
-    <None Remove="Resources\drone_cool_shape.obj" />
-    <None Remove="Resources\drone_eredeti.obj" />
-    <None Remove="Resources\drone_eredeti_eredeti.obj" />
     <None Remove="Resources\fish.obj" />
     <None Remove="Resources\metal.png" />
-    <None Remove="Resources\skybox.png" />
-    <None Remove="Resources\teapot.obj" />
     <None Remove="Shaders\FragmentShader.frag" />
     <None Remove="Shaders\VertexShader.vert" />
   </ItemGroup>
@@ -34,18 +24,8 @@
     <EmbeddedResource Include="metal.png" />
     <EmbeddedResource Include="Resources\beach.png" />
     <EmbeddedResource Include="Resources\drone.obj" />
-    <EmbeddedResource Include="Resources\drone_cool_shape.obj" />
-    <EmbeddedResource Include="Resources\drone_eredeti_eredeti.obj" />
-    <EmbeddedResource Include="Resources\drone5.obj" />
-    <EmbeddedResource Include="Resources\drone_eredeti.obj" />
-    <EmbeddedResource Include="Resources\drone4.obj" />
-    <EmbeddedResource Include="Resources\drone2.obj" />
-    <EmbeddedResource Include="Resources\drone1.obj" />
     <EmbeddedResource Include="Resources\fish.obj" />
     <EmbeddedResource Include="Resources\metal.png" />
-    <EmbeddedResource Include="Resources\skybox.png" />
-    <EmbeddedResource Include="Resources\teapot.obj" />
-    <EmbeddedResource Include="Resources\drone3.obj" />
     <EmbeddedResource Include="Shaders\FragmentShader.frag" />
     <EmbeddedResource Include="Shaders\VertexShader.vert" />
   </ItemGroup>
