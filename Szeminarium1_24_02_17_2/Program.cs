@@ -731,9 +731,6 @@ namespace Szeminarium1_24_02_17_2
             DrawPulsingTeapot(dronePosition);
 
             // whale
-           // SetObjectColor(new Vector4(0.5f, 0.5f, 0.5f, 1.0f));
-           // DrawWhale(whalePosition, fishRotations[0]);
-
             // render multiple whale objects
             for(int i=0; i< whalePosition.Length; i++)
             {
@@ -918,17 +915,6 @@ namespace Szeminarium1_24_02_17_2
 
         private static unsafe void DrawWhale(Vector3 position, float rotationAngle, int i)
         {
-            // calculate the target rotation angle based on the movement direction
-            /*float targetRotationAngle = MathF.Atan2(-droneMoveDirection.X, droneMoveDirection.Z);
-            if (droneMoveDirection == Vector3.Zero)
-            {
-                targetRotationAngle = rotationAngle;
-            }
-            else
-            {
-                rotationAngle = targetRotationAngle;
-            }*/
-
             // model matrix for the dragon with translation and rotation
             // Create the model matrix with the rotation and translation
             Matrix4X4<float> modelMatrix = Matrix4X4.CreateScale(0.5f) *

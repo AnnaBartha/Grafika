@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\cameradescriptordroneview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\cameradescriptordroneview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|c:\\users\\anna\\documents\\egyetem\\6_felev\\grafika\\new_version\\grafika\\szeminarium1_24_02_17_2\\objresourcereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3413DB5A-5028-4625-95F5-05B7AB7472F2}|Szeminarium1_24_02_17_2\\Szeminarium1_24_02_17_2.csproj|solutionrelative:szeminarium1_24_02_17_2\\objresourcereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -44,7 +48,7 @@
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Program.cs",
               "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Program.cs",
               "RelativeToolTip": "Szeminarium1_24_02_17_2\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAnAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAADwvyAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-13T07:59:14.261Z",
               "IsPinned": true,
@@ -52,7 +56,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "CameraDescriptorDroneView.cs",
+              "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\CameraDescriptorDroneView.cs",
+              "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\CameraDescriptorDroneView.cs",
+              "ToolTip": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\CameraDescriptorDroneView.cs",
+              "RelativeToolTip": "Szeminarium1_24_02_17_2\\CameraDescriptorDroneView.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T14:07:19.34Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "CubeArrangementModel.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\CubeArrangementModel.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\CubeArrangementModel.cs",
@@ -64,7 +80,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "ObjResourceReader.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\ObjResourceReader.cs",
@@ -76,7 +92,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "VertexShader.vert",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Shaders\\VertexShader.vert",
@@ -88,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "FragmentShader.frag",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Shaders\\FragmentShader.frag",
@@ -100,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Shader.cs",
               "DocumentMoniker": "C:\\Users\\Anna\\Documents\\Egyetem\\6_felev\\Grafika\\new_version\\Grafika\\Szeminarium1_24_02_17_2\\Shader.cs",
               "RelativeDocumentMoniker": "Szeminarium1_24_02_17_2\\Shader.cs",
